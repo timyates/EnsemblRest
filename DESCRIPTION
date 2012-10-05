@@ -1,0 +1,23 @@
+Package:     EnsemblRest 
+Type:        Package
+Title:       An R interface to the Ensembl REST API
+Version:     0.1
+Date:        2012-10-01
+Author:      Tim Yates <tyates@picr.man.ac.uk>
+Maintainer:  Tim Yates <tyates@picr.man.ac.uk>
+Depends:     R (>= 2.15.0),
+             methods,
+             rjson
+Suggests:    RUnit
+Description: TODO
+License:     Apache License 2.0
+biocViews:   Annotation
+Collate:     zzz.R
+             EnsemblRest.R
+             ComparativeGenomics.R
+             CrossReferences.R
+             Information.R
+             Lookup.R
+             Mapping.R
+             Sequences.R
+             Variation.R

@@ -1,0 +1,29 @@
+% -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
+%\VignetteIndexEntry{EnsemblRest primer}
+%\VignetteKeywords{}
+%\VignetteDepends{}
+%\VignettePackage{EnsemblRest}
+%documentclass[12pt, a4paper]{article}
+\documentclass[12pt]{article}
+\usepackage{amsmath,pstricks}
+\usepackage{hyperref}
+\usepackage[authoryear,round]{natbib}
+\usepackage{color}
+\usepackage[scaled]{helvet}
+\renewcommand*\familydefault{\sfdefault}
+\textwidth=6.2in
+\textheight=9.5in
+@ \parskip=.3cm
+\oddsidemargin=.1in
+\evensidemargin=.1in
+\headheight=-1in
+\newcommand{\code}[1]{{\texttt{#1}}}
+\author{Tim Yates}
+\begin{document}
+\title{An R interface to the Ensembl REST API}
+\maketitle
+\tableofcontents
+\section{Introduction}
+\subsection{A subsection}
+Begin document
+\end{document}

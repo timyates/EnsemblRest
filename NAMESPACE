@@ -1,0 +1,2 @@
+# export any method name that doesn't start with a full stop
+exportPattern("^[^\\.]")
