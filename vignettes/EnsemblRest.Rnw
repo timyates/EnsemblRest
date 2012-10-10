@@ -3,27 +3,115 @@
 %\VignetteKeywords{}
 %\VignetteDepends{}
 %\VignettePackage{EnsemblRest}
-%documentclass[12pt, a4paper]{article}
-\documentclass[12pt]{article}
+\documentclass[10pt, a4paper]{article}
+\RequirePackage{colortbl}
+\RequirePackage{xcolor}
 \usepackage{amsmath,pstricks}
 \usepackage{hyperref}
+\usepackage[hmargin=3cm,vmargin=3.5cm]{geometry}
 \usepackage[authoryear,round]{natbib}
-\usepackage{color}
+\usepackage{fmtcount} % displaying latex counters
+\usepackage[T1]{fontenc}
 \usepackage[scaled]{helvet}
+\usepackage{color}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{wrapfig}
+\SweaveOpts{keep.source=TRUE}
+\definecolor{darkred}{rgb}{0.545,0,0} 
+\definecolor{midnightblue}{rgb}{0.098,0.098,0.439} 
+\definecolor{palered}{rgb}{1.0,0.5,0.5} 
+\definecolor{palegreen}{rgb}{0.5,1.0,0.5} 
+\definecolor{silver}{rgb}{0.95,0.95,0.95}
 \renewcommand*\familydefault{\sfdefault}
-\textwidth=6.2in
-\textheight=9.5in
-@ \parskip=.3cm
-\oddsidemargin=.1in
-\evensidemargin=.1in
-\headheight=-1in
-\newcommand{\code}[1]{{\texttt{#1}}}
+\newcommand{\scscst}{\scriptscriptstyle}
+\newcommand{\scst}{\scriptstyle}
+\newcommand{\code}[1]{{\ttfamily\texttt{#1}}}
 \author{Tim Yates}
 \begin{document}
 \title{An R interface to the Ensembl REST API}
 \maketitle
 \tableofcontents
 \section{Introduction}
-\subsection{A subsection}
+This package uses the Ensembl REST API\footnote{\url{http://beta.rest.ensembl.org/}} (currently in beta) to extract data from Ensembl into R.
+\section{Available Methods}
+To begin with (assuming you have installed this package), you need to load it into your R session:
+
+<<eval=TRUE,echo=TRUE>>=
+library( EnsemblRest )
+@
+
+The following subsections then list the methods available to you.
+
+\subsection{Information}
+\subsubsection{\code{isAlive}}
+
+Firstly, we can check to see that the REST API is accepting calls:
+<<eval=TRUE,echo=TRUE>>=
+isAlive()
+@
+
+\subsubsection{\code{infoSpecies}}
+
+To get a list of available species on the server, you can use the \code{infoSpecies} call\footnote{\url{http://beta.rest.ensembl.org/documentation/info/species}}.
+
+<<eval=TRUE,echo=TRUE>>=
+infoSpecies()[1:3] # Just the first 3
+@
+
+\subsubsection{\code{infoAssembly}}
+
+The \code{infoAssembly} call\footnote{\url{http://beta.rest.ensembl.org/documentation/info/assembly_info}} returns information about the currently available assemblies in the given species.
+
+<<eval=TRUE,echo=TRUE>>=
+infoAssembly( 'human' )
+@
+
+\subsubsection{\code{assemblyDetails}}
+
+The \code{assemblyDetails} call\footnote{\url{http://beta.rest.ensembl.org/documentation/info/assembly_stats}} returns information about one of these assemblies.
+
+<<eval=TRUE,echo=TRUE>>=
+assemblyDetails( 'X', 'human' )
+@
+
+\subsubsection{\code{infoComparas}}
+
+The \code{infoComparas} call\footnote{\url{http://beta.rest.ensembl.org/documentation/info/comparas}} lists the available comparative genomics databases.
+
+<<eval=TRUE,echo=TRUE>>=
+infoComparas()
+@
+
+\subsubsection{\code{infoData}}
+
+The \code{infoData} call\footnote{\url{http://beta.rest.ensembl.org/documentation/info/data}} shows the data releases available to the REST service
+
+<<eval=TRUE,echo=TRUE>>=
+infoData()
+@
+
+\subsubsection{\code{infoRest}}
+
+\code{infoRest} shows the current version\footnote{\url{http://beta.rest.ensembl.org/documentation/info/rest}} of the REST service
+
+<<eval=TRUE,echo=TRUE>>=
+infoRest()
+@
+
+\subsubsection{\code{infoSoftware}}
+
+And finally in the info section, \code{infoSoftware} shows\footnote{\url{http://beta.rest.ensembl.org/documentation/info/software}} the current version of the Ensembl API.
+
+<<eval=TRUE,echo=TRUE>>=
+infoSoftware()
+@
+
+\subsection{Comparative Genomics}
+\subsection{Cross References}
+\subsection{Lookup}
+\subsection{Mapping}
+\subsection{Sequences}
+\subsection{Variation}
 Begin document
 \end{document}
