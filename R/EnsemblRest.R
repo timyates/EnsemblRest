@@ -37,12 +37,15 @@ getParam = function( key ) {
                paste( params, collapse='&' ),
                sep='?' )
   .Ensembl$debugFn( paste( 'calling', url ) )
+  result = getURL( url )
+
   if( content_type == .Ensembl$json.content.type ) {
-    suppressWarnings( fromJSON( file=url ) )
+    result = suppressWarnings( fromJSON( result ) )
+    if( !is.null( result$error ) ) {
+      stop( result$error )
+    }
   }
-  else {
-    readLines( url( url ), warn=F )
-  }
+  result
 }
 
 .make.params = function( ... ) {

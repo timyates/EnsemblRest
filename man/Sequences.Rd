@@ -1,4 +1,5 @@
 \name{sequences}
+\alias{EnsemblRest-sequences}
 \alias{sequenceById}
 \alias{sequenceByRegion}
 \title{
@@ -41,7 +42,7 @@
   \item{type}{ The type of sequence to retrieve. Used to inform the API of the type of sequence wanted. Defaults to genomic where applicable i.e. not translations. cdna refers to the spliced transcript sequence with UTR and cds refers to the spliced transcript sequence without UTR. }
   \item{region}{ The region to retrieve mappings for. A maximum of 10Mb is allowed to be requested at any one time, eg: X:1..1000:1, X:1..1000:-1, X:1..1000 }
 }
-\value{
+\details{
   Returns a JSON object converted to a List of Lists.
 }
 \author{

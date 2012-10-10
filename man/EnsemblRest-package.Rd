@@ -24,4 +24,14 @@
 \references{
   The Ensembl REST Api: \url{http://beta.rest.ensembl.org/}
 }
+\seealso{
+  \code{\link{EnsemblRest-comparativeGenomics}}\cr
+  \code{\link{EnsemblRest-crossReferences}}\cr
+  \code{\link{EnsemblRest-information}}\cr
+  \code{\link{EnsemblRest-lookup}}\cr
+  \code{\link{EnsemblRest-mapping}}\cr
+  \code{\link{EnsemblRest-sequences}}\cr
+  \code{\link{EnsemblRest-utils}}\cr
+  \code{\link{EnsemblRest-variation}}\cr
+}
 \keyword{ package }

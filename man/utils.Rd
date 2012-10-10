@@ -1,4 +1,5 @@
 \name{utils}
+\alias{EnsemblRest-utils}
 \alias{getParam}
 \alias{setParam}
 \title{
@@ -17,9 +18,6 @@
 }
 \details{
   These functions allow some access to internal configuration data. They are included to help debug issues, and are not normally needed.
-}
-\author{
-  Tim Yates
 }
 \examples{
   getParam( "debug" ) # FALSE

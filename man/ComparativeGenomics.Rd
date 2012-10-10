@@ -1,4 +1,5 @@
 \name{comparativeGenomics}
+\alias{EnsemblRest-comparativeGenomics}
 \alias{geneTree}
 \alias{homologyById}
 \alias{homologyBySymbol}
@@ -52,13 +53,10 @@
   \item{symbol}{ Symbol to search with, ie: BRCA2 }
   \item{format}{ Specify the formats to emit from this endpoint. }
 }
-\value{
-  Returns a JSON object converted to a List of Lists.  Apart from geneTree which returns an NH format tree.
+\details{
+  \code{geneTree} returns an NH format tree as a character vector.
 
-
-}
-\author{
-  Tim Yates
+  \code{homologyById} and \code{homologyBySymbol} return a \code{\link{EnsHomologyResponse}} object.
 }
 \examples{
   geneTree( 'ENSGT00390000003602' )

@@ -1,33 +1,39 @@
 # Information Calls
 
 infoAssembly = function( species ) {
-  .load.and.parse( c( .Ensembl$assembly, species ) )
+  getRefClass( 'EnsAssemblyInfo' )$new( .load.and.parse( c( .Ensembl$assembly, species ) ) )
 }
 
 assemblyDetails = function( id, species ) {
-  .load.and.parse( c( .Ensembl$assembly, species, id ) )
+  getRefClass( 'EnsAssemblyDetails' )$new( .load.and.parse( c( .Ensembl$assembly, species, id ) ) )
 }
 
 infoComparas = function() {
-  .load.and.parse( .Ensembl$info.comparas )
+  unlist( lapply( .load.and.parse( .Ensembl$info.comparas )$comparas, function( a ) {
+    r = list( a$release )
+    names( r ) = a$name
+    r
+  } ) )
 }
 
 infoData = function() {
-  .load.and.parse( .Ensembl$info.data )
+  unlist( .load.and.parse( .Ensembl$info.data )$releases )
 }
 
-infoPing = function() {
-  .load.and.parse( .Ensembl$info.ping )
+isAlive = function() {
+  .load.and.parse( .Ensembl$info.ping )$ping == '1'
 }
 
 infoRest = function() {
-  .load.and.parse( .Ensembl$info.rest )
+  .load.and.parse( .Ensembl$info.rest )$release
 }
 
 infoSoftware = function() {
-  .load.and.parse( .Ensembl$info.software )
+  .load.and.parse( .Ensembl$info.software )$release
 }
 
 infoSpecies = function() {
-  .load.and.parse( .Ensembl$info.species )
+  lapply( .load.and.parse( .Ensembl$info.species )$species, function( a ) {
+    getRefClass( 'EnsSpecies' )$new( a )
+  } )
 }

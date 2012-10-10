@@ -1,4 +1,5 @@
 \name{mapping}
+\alias{EnsemblRest-mapping}
 \alias{mapping}
 \alias{mappingCdna}
 \alias{mappingCds}
@@ -31,11 +32,10 @@
   \item{id}{ The stable identifier of the entity you wish to retrieve a mapping for, eg: ENST00000288602 }
   \item{object}{ Object type to restrict searches to. Used when a stable ID is not unique to a single class, eg: gene, transcript }
 }
-\value{
-  Returns a JSON object converted to a List of Lists.
-}
-\author{
-  Tim Yates
+\details{
+  The function \code{mapping} returns a \code{list} containing the elements \code{original} and \code{mapped}, both of which are \code{GRanges} objects.
+
+  The remaining 3 functions return a \code{GRanges} object containing the mapping ranges.
 }
 \examples{
   mapping( 'NCBI36', '1..10000:1', 'GRCh37', 'human' )

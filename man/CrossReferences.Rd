@@ -1,4 +1,5 @@
 \name{crossReferences}
+\alias{EnsemblRest-crossReferences}
 \alias{xrefsById}
 \alias{xrefsByName}
 \alias{xrefsBySymbol}
@@ -42,11 +43,10 @@
   \item{name}{ The external name/primary accession to search for, eg: BRAF, NM_004333 }
   \item{symbol}{ The external name/symbol to search for, eg: BRAF, BRCA2 }
 }
-\value{
-  Returns a JSON object converted to a List of Lists.
-}
-\author{
-  Tim Yates
+\details{
+  \code{xrefsById} and \code{xrefsByName} return a list containing \code{\link{EnsXref}} objects.
+
+  \code{xrefsBySymbol} returns a list of \code{\link{EnsRef}} objects.
 }
 \examples{
   xrefsById( 'ENSG00000170037' )

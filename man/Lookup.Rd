@@ -1,4 +1,5 @@
 \name{lookup}
+\alias{EnsemblRest-lookup}
 \alias{lookupId}
 \title{
   Lookup Methods
@@ -20,11 +21,8 @@
   \item{db_type}{ Force the database to search for symbols in. Useful if you need to use a DB other than core. }
   \item{object}{ Object type to restrict searches to. Used when a stable ID is not unique to a single class, eg: gene, transcript }
 }
-\value{
-  Returns a JSON object converted to a List of Lists.
-}
-\author{
-  Tim Yates
+\details{
+  Returns a \code{data.frame} containing the lookup response.
 }
 \examples{
   lookupId( 'ENSG00000170037' )

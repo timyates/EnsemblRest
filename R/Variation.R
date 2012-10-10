@@ -1,9 +1,13 @@
 # Variation
 
 variationAllele = function( allele, region, species ) {
-  .load.and.parse( c( .Ensembl$variation, species, region, allele, .Ensembl$variation.tail ) )
+  lapply( .load.and.parse( c( .Ensembl$variation, species, region, allele, .Ensembl$variation.tail ) )$data, function( f ) {
+    getRefClass( 'EnsVariantConsequence' )$new( f )
+  } )
 }
 
 variationId = function( id, species ) {
-  .load.and.parse( c( .Ensembl$variation, species, .Ensembl$variation.id, id, .Ensembl$variation.tail ) )
+  lapply( .load.and.parse( c( .Ensembl$variation, species, .Ensembl$variation.id, id, .Ensembl$variation.tail ) )$data, function( f ) {
+    getRefClass( 'EnsVariantConsequence' )$new( f )
+  } )
 }

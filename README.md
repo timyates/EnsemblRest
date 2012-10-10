@@ -8,4 +8,8 @@ To install, clone this repository and type:
 
     R CMD INSTALL EnsemblRest
 
-Just converts JSON to Lists of lists, so could be made much nicer (need to make time to write S3 classes for the different functions that can then be functionally accessed)
+For documentation, type:
+
+    ?EnsemblRest
+
+into your R session.

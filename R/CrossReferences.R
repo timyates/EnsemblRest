@@ -12,7 +12,7 @@ xrefsById = function( id,
   if( !missing( species ) ) params = c( params, .make.params( species=species ) )
   if( all_levels ) params = c( params, .make.params( all_levels=1 ) )
   if( !is.null( external_db ) ) params = c( params, .make.params( external_db=external_db ) )
-  .load.and.parse( c( .Ensembl$xrefs, id ), params )
+  lapply( .load.and.parse( c( .Ensembl$xrefs, id ), params ), getRefClass( 'EnsXref' )$new )
 }
 
 xrefsByName = function( name,
@@ -21,7 +21,7 @@ xrefsByName = function( name,
                         external_db=NULL ) {
   params = .make.params( db_type=match.arg( db_type ) )
   if( !is.null( external_db ) ) params = c( params, .make.params( external_db=external_db ) )
-  .load.and.parse( c( .Ensembl$xrefs.name, species, name ), params )
+  lapply( .load.and.parse( c( .Ensembl$xrefs.name, species, name ), params ), getRefClass( 'EnsXref' )$new )
 }
 
 xrefsBySymbol = function( symbol, species,
@@ -32,5 +32,5 @@ xrefsBySymbol = function( symbol, species,
   params = .make.params( db_type=match.arg( db_type ) )
   if( !is.na( object ) ) params = c( params, .make.params( object=object ) )
   if( !is.null( external_db ) ) params = c( params, .make.params( external_db=external_db ) )
-  .load.and.parse( c( .Ensembl$xrefs.symbol, species, symbol ), params )
+  lapply( .load.and.parse( c( .Ensembl$xrefs.symbol, species, symbol ), params ), getRefClass( 'EnsRef' )$new )
 }
