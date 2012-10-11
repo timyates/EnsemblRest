@@ -100,49 +100,6 @@ setRefClass( "EnsHomologyResponse",
                }
             ) )
 
-setRefClass( "EnsXref",
-             fields=list( 
-               display_id='character',
-               primary_id='character',
-               version='character',
-               description='character',
-               dbname='character',
-               synonyms='character',
-               info_type='character',
-               info_text='character',
-               db_display_name='character'
-             ),
-             methods = list(
-               initialize = function( x=NULL, ... ) {
-                 'Initialize an Xref from data returned by rjson'
-                 if( !is.null( x ) ) {
-                   display_id      <<- x$display_id
-                   primary_id      <<- x$primary_id
-                   version         <<- x$version
-                   description     <<- if( !is.null( x$description ) ) x$description else ''
-                   dbname          <<- x$dbname
-                   synonyms        <<- as.character( unlist( x$synonyms ) )
-                   info_type       <<- x$info_type
-                   info_text       <<- x$info_text
-                   db_display_name <<- x$db_display_name
-                 }
-               },
-               show = function( prefix='' ) {
-                 'Method for automatically printing Xref'
-                 cat( prefix, 'Xref of class ', classLabel( class( .self ) ), '\n' )
-                 prefix = paste( prefix, '|' )
-                 if( length( display_id ) > 0 )      cat( prefix, '--      display_id: ', display_id, '\n' )
-                 if( length( primary_id ) > 0 )      cat( prefix, '--      primary_id: ', primary_id, '\n' )
-                 if( length( version ) > 0 )         cat( prefix, '--         version: ', version, '\n' )
-                 if( length( description ) > 0 )     cat( prefix, '--     description: ', description, '\n' )
-                 if( length( dbname ) > 0 )          cat( prefix, '--          dbname: ', dbname, '\n' )
-                 if( length( synonyms ) > 0 )        cat( prefix, '--        synonyms: ', synonyms, '\n' )
-                 if( length( info_type ) > 0 )       cat( prefix, '--       info_type: ', info_type, '\n' )
-                 if( length( info_text ) > 0 )       cat( prefix, '--       info_text: ', info_text, '\n' )
-                 if( length( db_display_name ) > 0 ) cat( prefix, '-- db_display_name: ', db_display_name, '\n' )
-               }
-           ) )
-
 setRefClass( "EnsRef",
              fields=list( 
                id='character',

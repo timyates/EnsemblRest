@@ -12,7 +12,10 @@ xrefsById = function( id,
   if( !missing( species ) ) params = c( params, .make.params( species=species ) )
   if( all_levels ) params = c( params, .make.params( all_levels=1 ) )
   if( !is.null( external_db ) ) params = c( params, .make.params( external_db=external_db ) )
-  lapply( .load.and.parse( c( .Ensembl$xrefs, id ), params ), getRefClass( 'EnsXref' )$new )
+  rbind.fill( lapply( .load.and.parse( c( .Ensembl$xrefs, id ), params ), function( elem ) {
+    # Strip NULL and list()
+    data.frame( elem[ !sapply( elem, is.null ) & ( sapply( elem, function( b ) { !is.list( b ) || length( b ) > 0 } ) ) ] )
+  } ) )
 }
 
 xrefsByName = function( name,
@@ -21,7 +24,10 @@ xrefsByName = function( name,
                         external_db=NULL ) {
   params = .make.params( db_type=match.arg( db_type ) )
   if( !is.null( external_db ) ) params = c( params, .make.params( external_db=external_db ) )
-  lapply( .load.and.parse( c( .Ensembl$xrefs.name, species, name ), params ), getRefClass( 'EnsXref' )$new )
+  rbind.fill( lapply( .load.and.parse( c( .Ensembl$xrefs.name, species, name ), params ), function( elem ) {
+    # Strip NULL and list()
+    data.frame( elem[ !sapply( elem, is.null ) & ( sapply( elem, function( b ) { !is.list( b ) || length( b ) > 0 } ) ) ] )
+  } ) )
 }
 
 xrefsBySymbol = function( symbol, species,

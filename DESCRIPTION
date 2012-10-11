@@ -7,7 +7,8 @@ Author:      Tim Yates <tyates@picr.man.ac.uk>
 Maintainer:  Tim Yates <tyates@picr.man.ac.uk>
 Depends:     R (>= 2.15.0),
              methods
-Imports:     rjson,
+Imports:     plyr,
+             rjson,
              RCurl,
              GenomicRanges
 Suggests:    RUnit
