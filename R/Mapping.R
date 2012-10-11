@@ -2,18 +2,14 @@
 
 mapping = function( asm_one, region, asm_two, species ) {
   lapply( .load.and.parse( c( .Ensembl$mapping, species, asm_one, region, asm_two ) )$mappings, function( x ) {
-    list( original=as( as( data.frame( space=x$original$seq_region_name,
-                                       start=x$original$start,
-                                       end=x$original$end,
-                                       strand=if( x$original$strand == '1' ) '+' else if( x$original$strand == '-1' ) '-' else '*' ,
-                                       assembly=x$original$assembly,
-                                       coordinate_system=x$original$coordinate_system ), 'RangedData' ), 'GRanges' ),
-          mapped=as( as( data.frame( space=x$mapped$seq_region_name,
-                                     start=x$mapped$start,
-                                     end=x$mapped$end,
-                                     strand=if( x$mapped$strand == '1' ) '+' else if( x$mapped$strand == '-1' ) '-' else '*',
-                                     assembly=x$mapped$assembly,
-                                     coordinate_system=x$mapped$coordinate_system ), 'RangedData' ), 'GRanges' ) )
+    as( as( data.frame( space=c( x$original$seq_region_name, x$mapped$seq_region_name ),
+                        start=c( x$original$start, x$mapped$start ),
+                        end=c( x$original$end, x$mapped$end ),
+                        strand=c( .strandString( x$original$strand ), .strandString( x$mapped$strand ) ),
+                        assembly=c( x$original$assembly, x$mapped$assembly ),
+                        coordinate_system=c( x$original$coordinate_system, x$mapped$coordinate_system ),
+                        type=c( 'original', 'mapped' ),
+                        stringsAsFactors=F ), 'RangedData' ), 'GRanges' )
   } )
 }
 

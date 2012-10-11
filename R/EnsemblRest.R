@@ -7,6 +7,12 @@
   cat( format( Sys.time(), "%a %b %d %X %Y" ), "::", message, "\n" )
 }
 
+.strandString = function( strand ) {
+  if( strand == '1' || strand == 1 ) '+'
+  else if( strand == '-1' || strand == -1 ) '-'
+  else '*'
+}
+
 setParam = function( ... ) {
   .params = list( ... )
   for( .name in names( .params ) ) {
