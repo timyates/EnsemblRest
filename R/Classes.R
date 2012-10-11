@@ -286,7 +286,7 @@ setRefClass( "EnsVariantConsequence",
                    location <<- as( as( data.frame( space=x$location$name,
                                                     start=as.numeric( x$location$start ),
                                                     end=as.numeric( x$location$end ),
-                                                    strand=if( x$location$strand == '1' ) '+' else if( x$location$strand == '-1' ) '-' else '*',
+                                                    strand=.strandString( x$location$strand ),
                                                     coord_system=x$location$coord_system ), 'RangedData' ), 'GRanges' )
                    hgvs <<- unlist( lapply( names( x$hgvs ), function( n ) {
                      r = x$hgvs[ n ]
