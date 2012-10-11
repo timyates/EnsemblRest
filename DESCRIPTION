@@ -1,7 +1,7 @@
 Package:     EnsemblRest 
 Type:        Package
 Title:       An R interface to the Ensembl REST API
-Version:     0.2
+Version:     0.3
 Date:        2012-10-01
 Author:      Tim Yates <tyates@picr.man.ac.uk>
 Maintainer:  Tim Yates <tyates@picr.man.ac.uk>
