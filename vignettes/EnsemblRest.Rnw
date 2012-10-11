@@ -186,19 +186,31 @@ xrefsBySymbol( 'BRAF', 'human' )
 
 \subsubsection{lookupId}
 
+To find the database and species containing a known Ensembl id, you can use the lookup function\footnote{\url{http://beta.rest.ensembl.org/documentation/info/lookup}} like so:
+
 <<eval=TRUE,echo=TRUE>>=
 lookupId( 'ENSG00000170037' )
 @
 
 \subsection{Mapping}
 
+The mapping functions are used to convert co-ordinates between systems or databases.
+
+There is currently an issue with \code{mappingCdna}, \code{mappingCds} and \code{mappingTranslation} in that the \code{seq\_region\_name} is not returned from the REST interface.  This has been reported to Ensembl and should be fixed in the next release.
+
 \subsubsection{mapping}
+
+The \code{mapping} function\footnote{\url{http://beta.rest.ensembl.org/documentation/info/assembly_map}} converts the co-ordinates in one assembly into another, ie:
 
 <<eval=TRUE,echo=TRUE>>=
 mapping( 'NCBI36', '1..10000:1', 'GRCh37', 'human' )
 @
 
+As you can see, it returns one \code{GRanges} object per result, with an \code{original} row and a \code{mapped} row.
+
 \subsubsection{mappingCdna}
+
+This function\footnote{\url{http://beta.rest.ensembl.org/documentation/info/assembly_cdna}} converts CDNA co-ordinates for a given Ensembl Transcript to genomic co-ordinates.
 
 <<eval=TRUE,echo=TRUE>>=
 mappingCdna( 'ENST00000288602', '100..300' )
@@ -206,11 +218,15 @@ mappingCdna( 'ENST00000288602', '100..300' )
 
 \subsubsection{mappingCds}
 
+Or you can convert CDS co-ordinates\footnote{\url{http://beta.rest.ensembl.org/documentation/info/assembly_cds}} instead of CDNA ones:
+
 <<eval=TRUE,echo=TRUE>>=
 mappingCds( 'ENST00000288602', '100..300' )
 @
 
 \subsubsection{mappingTranslation}
+
+And finally, it is possible to convert from protein co-ordinates to genomic ones using the \code{mappingTranslation} method\footnote{\url{http://beta.rest.ensembl.org/documentation/info/assembly_translation}}:
 
 <<eval=TRUE,echo=TRUE>>=
 mappingTranslation( 'ENSP00000288602', '100..300' )
@@ -220,15 +236,33 @@ mappingTranslation( 'ENSP00000288602', '100..300' )
 
 \subsubsection{sequenceById}
 
+Fetch a sequence based on the stable id of an Ensembl feature\footnote{\url{http://beta.rest.ensembl.org/documentation/info/sequence_id}} (I'm using \code{str} here to avoid overflowing the pdf too much):
+
 <<eval=TRUE,echo=TRUE>>=
-sequenceById( 'ENSG00000157764' )
+str( sequenceById( 'ENSG00000157764' ), give.head=F, strict.width='cut' )
+@
+
+You can also get different types of sequence, here is an example for the spliced CDNA sequence of a transcript:
+
+<<eval=TRUE,echo=TRUE>>=
+str( sequenceById( 'ENST00000408384', type='cdna' ), give.head=F, strict.width='cut' )
+@
+
+And again, for the protein coding
+
+<<eval=TRUE,echo=TRUE>>=
+str( sequenceById( 'ENSP00000334393', type='protein' ), give.head=F, strict.width='cut' )
 @
 
 \subsubsection{sequenceByRegion}
 
+You can also just query for a region of a given species:
+
 <<eval=TRUE,echo=TRUE>>=
-sequenceByRegion( 'X:1_000_000..1_000_100:1', 'human', format='fasta' )
+str( sequenceByRegion( 'X:1_000_000..1_000_100:1', 'human' ), give.head=F, strict.width='cut' )
 @
+
+If you pass \code{format='fasta'} to the above method, it will just return you a character vector containing a FastA formatted sequence.
 
 \subsection{Variation}
 
