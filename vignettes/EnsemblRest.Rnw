@@ -154,19 +154,29 @@ print( hResponse$homologies[1:2] ) # Again, just the top 2 homologies to save ro
 
 \subsection{Cross References}
 
-\subsubsection{}
+Cross references are links to other data about the object of interest.  It should be noted that these other data hold different fields and datatypes, so the results are returned in a \code{data.frame} containing a superset of column names, with non-applicable columns for a given result filled with \code{<NA>}.
+
+As a single object may have multiple synonyms, this will cause the object to exist in multiple rows, one for each synonym. 
+
+\subsubsection{xrefsById}
+
+Firstly we can get all external references\footnote{\url{http://beta.rest.ensembl.org/documentation/info/xref_id}} for a given Ensembl ID:
 
 <<eval=TRUE,echo=TRUE>>=
 xrefsById( 'ENSG00000170037' )
 @
 
-\subsubsection{}
+\subsubsection{xrefsByName}
+
+Or, we can look for an external reference primary accession\footnote{\url{http://beta.rest.ensembl.org/documentation/info/xref_name}} (given a species):
 
 <<eval=TRUE,echo=TRUE>>=
-xrefsByName( 'NM_004333', 'human', external_db='HGNC' )
+xrefsByName( 'NM_004333', 'human' )
 @
 
-\subsubsection{}
+\subsubsection{xrefsBySymbol}
+
+And we can finally look up all Ensembl objects referenced by an external symbol for a given species\footnote{\url{http://beta.rest.ensembl.org/documentation/info/xref_external}}:
 
 <<eval=TRUE,echo=TRUE>>=
 xrefsBySymbol( 'BRAF', 'human' )
@@ -174,7 +184,7 @@ xrefsBySymbol( 'BRAF', 'human' )
 
 \subsection{Lookup}
 
-\subsubsection{}
+\subsubsection{lookupId}
 
 <<eval=TRUE,echo=TRUE>>=
 lookupId( 'ENSG00000170037' )
@@ -182,25 +192,25 @@ lookupId( 'ENSG00000170037' )
 
 \subsection{Mapping}
 
-\subsubsection{}
+\subsubsection{mapping}
 
 <<eval=TRUE,echo=TRUE>>=
 mapping( 'NCBI36', '1..10000:1', 'GRCh37', 'human' )
 @
 
-\subsubsection{}
+\subsubsection{mappingCdna}
 
 <<eval=TRUE,echo=TRUE>>=
 mappingCdna( 'ENST00000288602', '100..300' )
 @
 
-\subsubsection{}
+\subsubsection{mappingCds}
 
 <<eval=TRUE,echo=TRUE>>=
 mappingCds( 'ENST00000288602', '100..300' )
 @
 
-\subsubsection{}
+\subsubsection{mappingTranslation}
 
 <<eval=TRUE,echo=TRUE>>=
 mappingTranslation( 'ENSP00000288602', '100..300' )
@@ -208,13 +218,13 @@ mappingTranslation( 'ENSP00000288602', '100..300' )
 
 \subsection{Sequences}
 
-\subsubsection{}
+\subsubsection{sequenceById}
 
 <<eval=TRUE,echo=TRUE>>=
 sequenceById( 'ENSG00000157764' )
 @
 
-\subsubsection{}
+\subsubsection{sequenceByRegion}
 
 <<eval=TRUE,echo=TRUE>>=
 sequenceByRegion( 'X:1_000_000..1_000_100:1', 'human', format='fasta' )
@@ -222,13 +232,13 @@ sequenceByRegion( 'X:1_000_000..1_000_100:1', 'human', format='fasta' )
 
 \subsection{Variation}
 
-\subsubsection{}
+\subsubsection{variationAllele}
 
 <<eval=TRUE,echo=TRUE>>=
 variationAllele( 'C', '9:22125503-22125502:1', 'human' )
 @
 
-\subsubsection{}
+\subsubsection{variationId}
 
 <<eval=TRUE,echo=TRUE>>=
 variationId( 'COSM476', 'human' )
