@@ -100,28 +100,6 @@ setRefClass( "EnsHomologyResponse",
                }
             ) )
 
-setRefClass( "EnsRef",
-             fields=list( 
-               id='character',
-               type='character'
-             ),
-             methods = list(
-               initialize = function( x=NULL, ... ) {
-                 'Initialize an internal Ensembl reference from data returned by rjson'
-                 if( !is.null( x ) ) {
-                   id   <<- x$id
-                   type <<- x$type
-                 }
-               },
-               show = function( prefix='' ) {
-                 'Method for automatically printing Ref'
-                 cat( prefix, 'Ref of class ', classLabel( class( .self ) ), '\n' )
-                 prefix = paste( prefix, '|' )
-                 if( length( id ) > 0 )   cat( prefix, '--   id: ', id, '\n' )
-                 if( length( type ) > 0 ) cat( prefix, '-- type: ', type, '\n' )
-               }
-           ) )
-
 setRefClass( "EnsAssemblyInfo",
              fields=list( 
                assembly_name='character',

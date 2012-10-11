@@ -38,5 +38,5 @@ xrefsBySymbol = function( symbol, species,
   params = .make.params( db_type=match.arg( db_type ) )
   if( !is.na( object ) ) params = c( params, .make.params( object=object ) )
   if( !is.null( external_db ) ) params = c( params, .make.params( external_db=external_db ) )
-  lapply( .load.and.parse( c( .Ensembl$xrefs.symbol, species, symbol ), params ), getRefClass( 'EnsRef' )$new )
+  do.call( 'rbind', lapply( .load.and.parse( c( .Ensembl$xrefs.symbol, species, symbol ), params ), as.data.frame ) )
 }
