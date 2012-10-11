@@ -32,8 +32,17 @@
 \title{An R interface to the Ensembl REST API}
 \maketitle
 \tableofcontents
+<<echo=FALSE>>=
+options(width=80)
+@
 \section{Introduction}
+
 This package uses the Ensembl REST API\footnote{\url{http://beta.rest.ensembl.org/}} (currently in beta) to extract data from Ensembl into R.
+
+As the REST API is in Beta, this package should also be considered to be in flux and functions/parameters/etc are subject to change as things get finalized.
+
+It could also do with your help.  If you find a problem, something you think could be better, or a better way of doing things, please consider visiting the GitHub project at \url{https://github.com/acbb/EnsemblRest} and posting an issue or a Pull Request.  Thanks!
+
 \section{Available Methods}
 To begin with (assuming you have installed this package), you need to load it into your R session:
 
@@ -108,10 +117,121 @@ infoSoftware()
 @
 
 \subsection{Comparative Genomics}
+
+\subsubsection{\code{geneTree}}
+
+This method\footnote{\url{http://beta.rest.ensembl.org/documentation/info/rest}} fetches the gene tree in New Hampshire format for a given Ensembl gene tree identifier.
+
+<<eval=TRUE,echo=TRUE>>=
+geneTree( 'ENSGT00390000003602' )
+@
+
+it is also possible to specify the NH format you require (ie: for full format):
+
+<<eval=TRUE,echo=TRUE>>=
+geneTree( 'ENSGT00390000003602', nh_format='full' )
+@
+
+\subsubsection{\code{homologyById}}
+
+When given an Ensembl Gene ID, returns the homology\footnote{\url{http://beta.rest.ensembl.org/documentation/info/homology_ensemblgene}} information for it.
+
+<<eval=TRUE,echo=TRUE>>=
+hResponse = homologyById( 'ENSG00000170037' )
+print( hResponse$id ) # The id you queried
+print( hResponse$homologies[1:2] ) # Just the top 2 homologies to save room
+@
+
+\subsubsection{\code{homologyBySymbol}}
+
+You can also retrieve homology information\footnote{\url{http://beta.rest.ensembl.org/documentation/info/homology_symbol}} given a symbol and a species;
+
+<<eval=TRUE,echo=TRUE>>=
+hResponse = homologyBySymbol( 'BRCA2', 'human' )
+print( hResponse$id ) # The id you queried
+print( hResponse$homologies[1:2] ) # Again, just the top 2 homologies to save room
+@
+
 \subsection{Cross References}
+
+\subsubsection{}
+
+<<eval=TRUE,echo=TRUE>>=
+xrefsById( 'ENSG00000170037' )
+@
+
+\subsubsection{}
+
+<<eval=TRUE,echo=TRUE>>=
+xrefsByName( 'NM_004333', 'human', external_db='HGNC' )
+@
+
+\subsubsection{}
+
+<<eval=TRUE,echo=TRUE>>=
+xrefsBySymbol( 'BRAF', 'human' )
+@
+
 \subsection{Lookup}
+
+\subsubsection{}
+
+<<eval=TRUE,echo=TRUE>>=
+lookupId( 'ENSG00000170037' )
+@
+
 \subsection{Mapping}
+
+\subsubsection{}
+
+<<eval=TRUE,echo=TRUE>>=
+mapping( 'NCBI36', '1..10000:1', 'GRCh37', 'human' )
+@
+
+\subsubsection{}
+
+<<eval=TRUE,echo=TRUE>>=
+mappingCdna( 'ENST00000288602', '100..300' )
+@
+
+\subsubsection{}
+
+<<eval=TRUE,echo=TRUE>>=
+mappingCds( 'ENST00000288602', '100..300' )
+@
+
+\subsubsection{}
+
+<<eval=TRUE,echo=TRUE>>=
+mappingTranslation( 'ENSP00000288602', '100..300' )
+@
+
 \subsection{Sequences}
+
+\subsubsection{}
+
+<<eval=TRUE,echo=TRUE>>=
+sequenceById( 'ENSG00000157764' )
+@
+
+\subsubsection{}
+
+<<eval=TRUE,echo=TRUE>>=
+sequenceByRegion( 'X:1_000_000..1_000_100:1', 'human', format='fasta' )
+@
+
 \subsection{Variation}
-Begin document
+
+\subsubsection{}
+
+<<eval=TRUE,echo=TRUE>>=
+variationAllele( 'C', '9:22125503-22125502:1', 'human' )
+@
+
+\subsubsection{}
+
+<<eval=TRUE,echo=TRUE>>=
+variationId( 'COSM476', 'human' )
+@
+
 \end{document}
