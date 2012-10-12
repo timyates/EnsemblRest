@@ -45,6 +45,8 @@
 
   The method \code{infoRest} returns a character vector containing the version of the rest API
 
+  The method \code{infoAssembly} returns a \code{\link{EnsAssemblyInfo}} class.
+  
   The methods \code{infoComparas}, \code{infoRest}, \code{infoSoftware} and \code{infoData} return a character vector of version information.
 
   The method \code{infoSpecies} returns a list of \code{\link{EnsSpecies}} objects.

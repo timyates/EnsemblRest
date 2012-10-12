@@ -11,11 +11,10 @@
 }
 \usage{
   \S4method{new}{EnsSpecies}( x=NULL, ... )
-  \S4method{show}{EnsSpecies}( prefix='' )
+  \S4method{show}{EnsSpecies}()
 }
 \arguments{
   \item{x}{ The \code{List} returned by a call to the rjson wrapper }
-  \item{prefix}{ the prefix to prepend to all output. }
   \item{...}{ Other params }
 }
 \details{

@@ -44,9 +44,11 @@
   \item{symbol}{ The external name/symbol to search for, eg: BRAF, BRCA2 }
 }
 \details{
-  \code{xrefsById} and \code{xrefsByName} return a list containing \code{\link{EnsXref}} objects.
+  All of these functions return a \code{data.frame}.
 
-  \code{xrefsBySymbol} returns a list of \code{\link{EnsRef}} objects.
+  It should be noted that \code{xrefsById} and \code{xrefsByName} return results from
+  different datasources with different columns, so the results are returned in a data.frame containing
+  a superset of column names, with non-applicable columns for a given result filled with \code{NA}.
 }
 \examples{
   xrefsById( 'ENSG00000170037' )

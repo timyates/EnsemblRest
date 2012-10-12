@@ -11,11 +11,10 @@
 }
 \usage{
   \S4method{new}{EnsHomologyResponse}( x=NULL, ... )
-  \S4method{show}{EnsHomologyResponse}( prefix='' )
+  \S4method{show}{EnsHomologyResponse}()
 }
 \arguments{
   \item{x}{ The \code{List} returned by a call to the rjson wrapper }
-  \item{prefix}{ the prefix to prepend to all output. }
   \item{...}{ Other params }
 }
 \details{

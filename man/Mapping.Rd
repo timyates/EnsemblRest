@@ -33,7 +33,7 @@
   \item{object}{ Object type to restrict searches to. Used when a stable ID is not unique to a single class, eg: gene, transcript }
 }
 \details{
-  The function \code{mapping} returns a \code{list} containing the elements \code{original} and \code{mapped}, both of which are \code{GRanges} objects.
+  The function \code{mapping} returns a \code{list} containing a \code{GRanges} object (with the field \code{type} having the value \code{original} for the query location, and \code{mapped} for the result).
 
   The remaining 3 functions return a \code{GRanges} object containing the mapping ranges.
 }

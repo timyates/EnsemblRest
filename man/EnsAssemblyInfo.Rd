@@ -4,18 +4,17 @@
 \alias{\S4method{new}{EnsAssemblyInfo}}
 \alias{\S4method{show}{EnsAssemblyInfo}}
 \title{
-  The Assembly Details class
+  The Assembly Info class
 }
 \description{
-  The class containing a Species
+  The class containing a Assembly Information
 }
 \usage{
   \S4method{new}{EnsAssemblyInfo}( x=NULL, ... )
-  \S4method{show}{EnsAssemblyInfo}( prefix='' )
+  \S4method{show}{EnsAssemblyInfo}()
 }
 \arguments{
   \item{x}{ The \code{List} returned by a call to the rjson wrapper }
-  \item{prefix}{ the prefix to prepend to all output. }
   \item{...}{ Other params }
 }
 \details{

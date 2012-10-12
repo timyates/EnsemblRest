@@ -4,18 +4,17 @@
 \alias{\S4method{new}{EnsVariantConsequence}}
 \alias{\S4method{show}{EnsVariantConsequence}}
 \title{
-  The Assembly Details class
+  The Variant Consequence class
 }
 \description{
-  The class containing a Species
+  The class containing the response from variation calls
 }
 \usage{
   \S4method{new}{EnsVariantConsequence}( x=NULL, ... )
-  \S4method{show}{EnsVariantConsequence}( prefix='' )
+  \S4method{show}{EnsVariantConsequence}()
 }
 \arguments{
   \item{x}{ The \code{List} returned by a call to the rjson wrapper }
-  \item{prefix}{ the prefix to prepend to all output. }
   \item{...}{ Other params }
 }
 \details{
