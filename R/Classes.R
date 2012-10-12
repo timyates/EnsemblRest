@@ -183,9 +183,28 @@ setRefClass( "EnsSpecies",
                }
            ) )
 
+.skip.nulls = function( name, data, curr, f ) {
+  if( is.null( data[[name]] ) ) {
+    curr
+  }
+  else {
+    curr = c( curr, if( is.null( f ) ) data[[name]] else f( data[[name]] ) )
+    names(curr)[length(curr)] = as.character( name )
+    curr
+  }
+}
+
+.process.data = function( data, format ) {
+  ret = c()
+  for( x in names( format ) ) {
+    ret = .skip.nulls( x, data, ret, format[[x]] )
+  }
+  as.data.frame( t( ret ) )
+}
+
 setRefClass( "EnsTranscript",
              fields=list(
-               protein_features='character',
+               protein_features='data.frame',
                alleles='data.frame',
                data='data.frame'
              ),
@@ -193,61 +212,39 @@ setRefClass( "EnsTranscript",
                initialize = function( x=NULL, ... ) {
                  'Initialize an Species reference from data returned by rjson'
                  if( !is.null( x ) ) {
-                   data <<- data.frame( name=if( is.null( x$name ) ) NA else x$name,
-                                        gene_id=if( is.null( x$gene_id ) ) NA else x$gene_id,
-                                        transcript_id=if( is.null( x$transcript_id ) ) NA else x$transcript_id,
-                                        biotype=if( is.null( x$biotype ) ) NA else x$biotype,
-                                        ccds=if( is.null( x$ccds ) ) NA else x$ccds,
-                                        cdna_allele_string=if( is.null( x$cdna_allele_string ) ) NA else x$cdna_allele_string,
-                                        codon_position=if( is.null( x$codon_position ) ) NA else x$codon_position,
-                                        translation_stable_id=if( is.null( x$translation_stable_id ) ) NA else x$translation_stable_id,
-                                        translation_start=if( is.null( x$translation_start ) ) NA else as.numeric( x$translation_start ),
-                                        translation_end=if( is.null( x$translation_end ) ) NA else as.numeric( x$translation_end ),
-                                        exon_number=if( is.null( x$exon_number ) ) NA else x$exon_number,
-                                        intron_number=if( is.null( x$intron_number ) ) NA else x$intron_number,
-                                        cdna_start=if( is.null( x$cdna_start ) ) NA else as.numeric( x$cdna_start ),
-                                        cdna_end=if( is.null( x$cdna_end ) ) NA else as.numeric( x$cdna_end ),
-                                        cds_start=if( is.null( x$cds_start ) ) NA else as.numeric( x$cds_start ),
-                                        cds_end=if( is.null( x$cds_end ) ) NA else as.numeric( x$cds_end ),
-                                        is_canonical=if( is.null( x$is_canonical ) ) NA else x$is_canonical == 1 )
+
+                   data <<- .process.data( x, list( name=NULL, gene_id=NULL, transcript_id=NULL, biotype=NULL, ccds=NULL,
+                                                    cdna_allele_string=NULL, codon_position=NULL, translation_stable_id=NULL,
+                                                    translation_start=as.numeric, translation_end=as.numeric, exon_number=NULL, intron_number=NULL,
+                                                    cdna_start=as.numeric, cdna_end=as.numeric, cds_start=as.numeric, cds_end=as.numeric,
+                                                    is_canonical=function(a) { a == 1 } ) )
                    if( !is.null( x$protein_features ) ) {
-                     protein_features <<- unlist( lapply( x$protein_features, function( p ) {
-                       r = p$name
-                       names( r ) = p$db
-                       r
+                     protein_features <<- do.call( 'rbind', lapply( x$protein_features, function( p ) {
+                       data.frame( name=p$name, db=p$db )
                      } ) )
                    }
-                   alleles <<- do.call( 'rbind', lapply( names( x$alleles ), function( a ) {
+                   alleles <<- rbind.fill( lapply( names( x$alleles ), function( a ) {
                      j = x$alleles[[ a ]]
-                     data.frame( name=a,
-                                 display_codon_allele_string=if( is.null( j$display_codon_allele_string ) ) NA else j$display_codon_allele_string,
-                                 pep_allele_string=if( is.null( j$pep_allele_string ) ) NA else j$pep_allele_string,
-                                 codon_allele_string=if( is.null( j$codon_allele_string ) ) NA else j$codon_allele_string,
-                                 hgvs_transcript=if( is.null( j$hgvs_transcript ) ) NA else j$hgvs_transcript,
-                                 hgvs_protein=if( is.null( j$hgvs_protein ) ) NA else j$hgvs_protein,
-                                 polyphen_score=if( is.null( j$polyphen_score ) ) NA else as.numeric( j$polyphen_score ),
-                                 polyphen_prediction=if( is.null( j$polyphen_prediction ) ) NA else j$polyphen_prediction,
-                                 sift_score=if( is.null( j$sift_score ) ) NA else as.numeric( j$sift_score ),
-                                 sift_prediction=if( is.null( j$sift_prediction ) ) NA else j$sift_prediction,
-                                 consequence_terms=if( is.null( j$consequence_terms ) ) NA else j$consequence_terms )
+                     .process.data( j, list( name=NULL, display_codon_allele_string=NULL, pep_allele_string=NULL,
+                                             codon_allele_string=NULL, hgvs_transcript=NULL, hgvs_protein= NULL,
+                                             polyphen_score=NULL, polyphen_prediction=NULL, sift_score=as.numeric,
+                                             sift_prediction=NULL, consequence_terms=NULL ) )
                    } ) )
                  }
                },
-               show = function( prefix='' ) {
+               show = function() {
                  'Method for automatically printing Ref'
-                 cat( prefix, 'Ref of class ', classLabel( class( .self ) ), '\n' )
-                 prefix = paste( prefix, '|' )
-                 if( length( protein_features ) > 0 ) {
-                   cat( prefix, '-- protein_features:\n' )
-                   print( protein_features )
+                 if( dim( data )[1] > 0 ) {
+                   cat(                                     'data             :\n' )
+                   print( data )
                  }
                  if( dim( alleles )[1] > 0 ) {
-                   cat( prefix, '-- alleles:\n' )
+                   cat(                                     '\nalleles          :\n' )
                    print( alleles )
                  }
-                 if( dim( data )[1] > 0 ) {
-                   cat( prefix, '-- data:\n' )
-                   print( data )
+                 if( length( protein_features ) > 0 ) {
+                   cat(                                     '\nprotein_features :\n' )
+                   print( protein_features )
                  }
                }
            ) )
@@ -282,19 +279,18 @@ setRefClass( "EnsVariantConsequence",
                    } )
                  }
                },
-               show = function( prefix='' ) {
+               show = function() {
                  'Method for automatically printing Ref'
-                 cat( prefix, 'Ref of class ', classLabel( class( .self ) ), '\n' )
-                 prefix = paste( prefix, '|' )
-                 if( length( name ) > 0 )       cat( prefix, '--       name: ', name, '\n' )
-                 if( length( is_somatic ) > 0 ) cat( prefix, '-- is_somatic: ', is_somatic, '\n' )
+                 if( length( name ) > 0 && nchar( name ) > 0 ) cat( paste( 'name        :', name ), '\n' )
+                 if( length( is_somatic ) > 0 )                 cat( paste( 'is_somatic  :', is_somatic ), '\n' )
                  if( length( hgvs ) > 0 ) {
-                   cat( prefix, '-- hgvs:\n' )
-                   print( hgvs )
+                   cat(                                                     'hgvs        :\n' )
+                   for( h in names( hgvs ) ) {
+                     cat( ' ', h, '=', hgvs[ h ], '\n' )
+                   }
                  }
                  if( length( transcripts ) > 0 ) {
-                   cat( prefix, '-- transcripts:\n' )
-                   print( transcripts )
+                   cat(                                                     'transcripts :', length( transcripts ), 'in total\n' )
                  }
                }
            ) )

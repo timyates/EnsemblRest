@@ -142,7 +142,7 @@ When given an Ensembl Gene ID, returns the homology\footnote{\url{http://beta.re
 
 <<eval=TRUE,echo=TRUE>>=
 hResponse = homologyById( 'ENSG00000170037' )
-hResponse # The response object
+hResponse                 # The response object
 hResponse$homologies[1:2] # Just the top 2 homologies to save room
 @
 
@@ -152,7 +152,7 @@ You can also retrieve homology information\footnote{\url{http://beta.rest.ensemb
 
 <<eval=TRUE,echo=TRUE>>=
 hResponse = homologyBySymbol( 'BRCA2', 'human' )
-hResponse # The response object
+hResponse                 # The response object
 hResponse$homologies[1:2] # Again, just the top 2 homologies to save room
 @
 
@@ -283,13 +283,17 @@ If you pass \code{format='fasta'} to the above method, it will just return you a
 \subsubsection{variationAllele}
 
 <<eval=TRUE,echo=TRUE>>=
-variationAllele( 'C', '9:22125503-22125502:1', 'human' )
+var = variationAllele( 'C', '9:22125503-22125502:1', 'human' )
+var                       # The response object
+var[[1]]$transcripts[1:2] # Just the top 2 transcripts of the first response to save room
 @
 
 \subsubsection{variationId}
 
 <<eval=TRUE,echo=TRUE>>=
-variationId( 'COSM476', 'human' )
+var = variationId( 'COSM476', 'human' )
+var                       # The response object
+var[[1]]$transcripts[1:2] # Again, just the top 2 transcripts to save room
 @
 
 \end{document}
