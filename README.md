@@ -13,3 +13,5 @@ For documentation, type:
     ?EnsemblRest
 
 into your R session.
+
+[The current vignette is also available here](https://github.com/acbb/EnsemblRest/blob/vignette/EnsemblRest.pdf?raw=true)
