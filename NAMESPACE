@@ -1,6 +1,0 @@
-# export any method name that doesn't start with a full stop
-exportPattern("^[^\\.]")
-importFrom( GenomicRanges, GRanges )
-importFrom( RCurl, getURL )
-importFrom( rjson, fromJSON )
-importFrom( plyr, rbind.fill )
