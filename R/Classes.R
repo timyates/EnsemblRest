@@ -21,17 +21,15 @@ setRefClass( "EnsHomologyDetail",
                    cigar_line <<- x$cigar_line
                  }
                },
-               show = function( prefix='' ) {
+               show = function() {
                  'Method for automatically printing HomologyDetail'
-                 cat( prefix, 'Homology Detail of class ', classLabel( class( .self ) ), '\n' )
-                 prefix = paste( prefix, '|' )
-                 cat( prefix, '--         id: ', id, '\n' )
-                 cat( prefix, '--    species: ', species, '\n' )
-                 cat( prefix, '-- protein_id: ', protein_id, '\n' )
-                 cat( prefix, '--   perc_pos: ', perc_pos, '\n' )
-                 cat( prefix, '--    perc_id: ', perc_id, '\n' )
-                 cat( prefix, '-- cigar_line: ', cigar_line, '\n' )
-                 cat( prefix, '--  align_seq: ', align_seq, '\n' )
+                 cat( paste( 'id         :', id ), '\n' )
+                 cat( paste( 'species    :', species ), '\n' )
+                 cat( paste( 'protein_id :', protein_id ), '\n' )
+                 cat( paste( 'perc_pos   :', perc_pos ), '\n' )
+                 cat( paste( 'perc_id    :', perc_id ), '\n' )
+                 cat( paste( 'cigar_line :', cigar_line ), '\n' )
+                 cat( paste( 'align_seq  :', align_seq ), '\n' )
                }
              ) )
 
@@ -54,20 +52,18 @@ setRefClass( "EnsHomology",
                    target  <<- getRefClass( 'EnsHomologyDetail' )$new( x$target, ... )
                  }
                },
-               show = function( prefix='' ) {
+               show = function() {
                  'Method for automatically printing Homology'
-                 cat( prefix, 'Homology of class ', classLabel( class( .self ) ), '\n' )
-                 prefix = paste( prefix, '|' )
-                 cat( prefix, '--   dn_ds: ', dn_ds, '\n' )
-                 cat( prefix, '--    type: ', type, '\n' )
-                 cat( prefix, '-- subtype: ', subtype, '\n' )
+                 cat( paste( 'dn_ds   :', dn_ds ), '\n' )
+                 cat( paste( 'type    :', type ), '\n' )
+                 cat( paste( 'subtype :', subtype ), '\n' )
                  if( length( source ) > 0 ) {
-                   cat( prefix, '--  source:\n' )
-                   cat( prefix, source$show( paste( prefix, ' ' ) ), '\n' )
+                   cat(      'source  :\n' )
+                   source$show()
                  }
                  if( length( target ) > 0 ) {
-                   cat( prefix, '--  target:\n' )
-                   cat( prefix, target$show( paste( prefix, ' ' ) ), '\n' )
+                   cat(      '\ntarget  :\n' )
+                   target$show()
                  }
                }
            ) )
@@ -87,16 +83,10 @@ setRefClass( "EnsHomologyResponse",
                    } )
                  }
                },
-               show = function( prefix='' ) {
+               show = function() {
                  'Method for automatically printing Homology'
-                 cat( prefix, 'Homology Response of class ', classLabel( class( .self ) ), '\n' )
-                 prefix = paste( prefix, '|' )
-                 cat( prefix, '--     id: ', id, '\n' )
-                 cat( prefix, '-- homologies: (length', length( homologies ), ')\n' )
-                 for( x in seq_along( homologies ) ) {
-                   cat( prefix, '[[', x, ']]\n' )
-                   homologies[[ x ]]$show( paste( prefix, ' ' ) )
-                 }
+                 cat( paste( 'id :', id ), '\n' )
+                 cat( paste( 'containing', length( homologies ), 'homologies\n' ) )
                }
             ) )
 
@@ -127,19 +117,17 @@ setRefClass( "EnsAssemblyInfo",
                    genebuild_method               <<- x$genebuild.method
                  }
                },
-               show = function( prefix='' ) {
+               show = function() {
                  'Method for automatically printing Ref'
-                 cat( prefix, 'Ref of class ', classLabel( class( .self ) ), '\n' )
-                 prefix = paste( prefix, '|' )
-                 if( length( assembly_name ) > 0 )                  cat( prefix, '--                  assembly_name: ', assembly_name, '\n' )
-                 if( length( assembly_date ) > 0 )                  cat( prefix, '--                  assembly_date: ', assembly_date, '\n' )
-                 if( length( coord_system_versions ) > 0 )          cat( prefix, '--          coord_system_versions: ', coord_system_versions, '\n' )
-                 if( length( schema_build ) > 0 )                   cat( prefix, '--                   schema_build: ', schema_build, '\n' )
-                 if( length( genebuild_start_date ) > 0 )           cat( prefix, '--           genebuild_start_date: ', genebuild_start_date, '\n' )
-                 if( length( genebuild_initial_release_date ) > 0 ) cat( prefix, '-- genebuild_initial_release_date: ', genebuild_initial_release_date, '\n' )
-                 if( length( genebuild_last_geneset_update ) > 0 )  cat( prefix, '--  genebuild_last_geneset_update: ', genebuild_last_geneset_update, '\n' )
-                 if( length( genebuild_method ) > 0 )               cat( prefix, '--               genebuild_method: ', genebuild_method, '\n' )
-                 if( length( top_level_seq_region_names ) > 0 )     cat( prefix, '--     top_level_seq_region_names: ', top_level_seq_region_names, '\n' )
+                 if( length( assembly_name ) > 0 )                  cat( paste( 'assembly_name                  :', assembly_name ), '\n' )
+                 if( length( assembly_date ) > 0 )                  cat( paste( 'assembly_date                  :', assembly_date ), '\n' )
+                 if( length( coord_system_versions ) > 0 )          cat( paste( 'coord_system_versions          :', paste( coord_system_versions, collapse=', ' ) ), '\n' )
+                 if( length( schema_build ) > 0 )                   cat( paste( 'schema_build                   :', schema_build ), '\n' )
+                 if( length( genebuild_start_date ) > 0 )           cat( paste( 'genebuild_start_date           :', genebuild_start_date ), '\n' )
+                 if( length( genebuild_initial_release_date ) > 0 ) cat( paste( 'genebuild_initial_release_date :', genebuild_initial_release_date ), '\n' )
+                 if( length( genebuild_last_geneset_update ) > 0 )  cat( paste( 'genebuild_last_geneset_update  :', genebuild_last_geneset_update ), '\n' )
+                 if( length( genebuild_method ) > 0 )               cat( paste( 'genebuild_method               :', genebuild_method ), '\n' )
+                 if( length( top_level_seq_region_names ) > 0 )     cat( paste( 'top_level_seq_region_names     :', paste( top_level_seq_region_names, collapse=', ' ) ), '\n' )
                }
            ) )
 
@@ -160,14 +148,12 @@ setRefClass( "EnsAssemblyDetails",
                    coordinate_system       <<- x$coordinate_system
                  }
                },
-               show = function( prefix='' ) {
+               show = function() {
                  'Method for automatically printing Ref'
-                 cat( prefix, 'Ref of class ', classLabel( class( .self ) ), '\n' )
-                 prefix = paste( prefix, '|' )
-                 if( length( is_chromosome ) > 0 )           cat( prefix, '--           is_chromosome: ', is_chromosome, '\n' )
-                 if( length( length ) > 0 )                  cat( prefix, '--                  length: ', length, '\n' )
-                 if( length( assembly_exception_type ) > 0 ) cat( prefix, '-- assembly_exception_type: ', assembly_exception_type, '\n' )
-                 if( length( coordinate_system ) > 0 )       cat( prefix, '--       coordinate_system: ', coordinate_system, '\n' )
+                 if( length( is_chromosome ) > 0 )           cat( paste( 'is_chromosome           :', is_chromosome ), '\n' )
+                 if( length( length ) > 0 )                  cat( paste( 'length                  :', length ), '\n' )
+                 if( length( assembly_exception_type ) > 0 ) cat( paste( 'assembly_exception_type :', assembly_exception_type ), '\n' )
+                 if( length( coordinate_system ) > 0 )       cat( paste( 'coordinate_system       :', coordinate_system ), '\n' )
                }
            ) )
 
@@ -188,14 +174,12 @@ setRefClass( "EnsSpecies",
                    release <<- x$release
                  }
                },
-               show = function( prefix='' ) {
+               show = function() {
                  'Method for automatically printing Ref'
-                 cat( prefix, 'Ref of class ', classLabel( class( .self ) ), '\n' )
-                 prefix = paste( prefix, '|' )
-                 if( length( name ) > 0 )    cat( prefix, '--    name: ', name, '\n' )
-                 if( length( aliases ) > 0 ) cat( prefix, '-- aliases: ', aliases, '\n' )
-                 if( length( groups ) > 0 )  cat( prefix, '--  groups: ', groups, '\n' )
-                 if( length( release ) > 0 ) cat( prefix, '-- release: ', release, '\n' )
+                 if( length( name ) > 0 )    cat( paste( 'name    :', name ), '\n' )
+                 if( length( aliases ) > 0 ) cat( paste( 'aliases :', paste( aliases, collapse=', ' ) ), '\n' )
+                 if( length( groups ) > 0 )  cat( paste( 'groups  :', paste( groups, collapse=', ' ) ), '\n' )
+                 if( length( release ) > 0 ) cat( paste( 'release :', release ), '\n' )
                }
            ) )
 

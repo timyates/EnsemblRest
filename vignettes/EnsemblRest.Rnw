@@ -32,9 +32,9 @@
 \title{An R interface to the Ensembl REST API}
 \maketitle
 \tableofcontents
-<<echo=FALSE>>=
-options(width=80)
-@
+
+\pagebreak
+
 \section{Introduction}
 
 This package uses the Ensembl REST API\footnote{\url{http://beta.rest.ensembl.org/}} (currently in beta) to extract data from Ensembl into R.
@@ -51,6 +51,8 @@ library( EnsemblRest )
 @
 
 The following subsections then list the methods available to you.
+
+\pagebreak
 
 \subsection{Information}
 \subsubsection{\code{isAlive}}
@@ -116,6 +118,8 @@ And finally in the info section, \code{infoSoftware} shows\footnote{\url{http://
 infoSoftware()
 @
 
+\pagebreak
+
 \subsection{Comparative Genomics}
 
 \subsubsection{\code{geneTree}}
@@ -138,8 +142,8 @@ When given an Ensembl Gene ID, returns the homology\footnote{\url{http://beta.re
 
 <<eval=TRUE,echo=TRUE>>=
 hResponse = homologyById( 'ENSG00000170037' )
-print( hResponse$id ) # The id you queried
-print( hResponse$homologies[1:2] ) # Just the top 2 homologies to save room
+hResponse # The response object
+hResponse$homologies[1:2] # Just the top 2 homologies to save room
 @
 
 \subsubsection{\code{homologyBySymbol}}
@@ -148,9 +152,11 @@ You can also retrieve homology information\footnote{\url{http://beta.rest.ensemb
 
 <<eval=TRUE,echo=TRUE>>=
 hResponse = homologyBySymbol( 'BRCA2', 'human' )
-print( hResponse$id ) # The id you queried
-print( hResponse$homologies[1:2] ) # Again, just the top 2 homologies to save room
+hResponse # The response object
+hResponse$homologies[1:2] # Again, just the top 2 homologies to save room
 @
+
+\pagebreak
 
 \subsection{Cross References}
 
@@ -182,6 +188,8 @@ And we can finally look up all Ensembl objects referenced by an external symbol 
 xrefsBySymbol( 'BRAF', 'human' )
 @
 
+\pagebreak
+
 \subsection{Lookup}
 
 \subsubsection{lookupId}
@@ -191,6 +199,8 @@ To find the database and species containing a known Ensembl id, you can use the 
 <<eval=TRUE,echo=TRUE>>=
 lookupId( 'ENSG00000170037' )
 @
+
+\pagebreak
 
 \subsection{Mapping}
 
@@ -232,6 +242,8 @@ And finally, it is possible to convert from protein co-ordinates to genomic ones
 mappingTranslation( 'ENSP00000288602', '100..300' )
 @
 
+\pagebreak
+
 \subsection{Sequences}
 
 \subsubsection{sequenceById}
@@ -256,13 +268,15 @@ str( sequenceById( 'ENSP00000334393', type='protein' ), give.head=F, strict.widt
 
 \subsubsection{sequenceByRegion}
 
-You can also just query for a region of a given species:
+You can also just query for a region of a given species\footnote{\url{http://beta.rest.ensembl.org/documentation/info/sequence_region}}:
 
 <<eval=TRUE,echo=TRUE>>=
 str( sequenceByRegion( 'X:1_000_000..1_000_100:1', 'human' ), give.head=F, strict.width='cut' )
 @
 
 If you pass \code{format='fasta'} to the above method, it will just return you a character vector containing a FastA formatted sequence.
+
+\pagebreak
 
 \subsection{Variation}
 
