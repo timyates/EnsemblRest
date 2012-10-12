@@ -3,8 +3,8 @@
 mapping = function( asm_one, region, asm_two, species ) {
   lapply( .load.and.parse( c( .Ensembl$mapping, species, asm_one, region, asm_two ) )$mappings, function( x ) {
     as( as( data.frame( space=c( x$original$seq_region_name, x$mapped$seq_region_name ),
-                        start=c( x$original$start, x$mapped$start ),
-                        end=c( x$original$end, x$mapped$end ),
+                        start=c( as.numeric( x$original$start ), as.numeric( x$mapped$start ) ),
+                        end=c( as.numeric( x$original$end ), as.numeric( x$mapped$end ) ),
                         strand=c( .strandString( x$original$strand ), .strandString( x$mapped$strand ) ),
                         assembly=c( x$original$assembly, x$mapped$assembly ),
                         coordinate_system=c( x$original$coordinate_system, x$mapped$coordinate_system ),
