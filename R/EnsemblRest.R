@@ -13,6 +13,18 @@
   else '*'
 }
 
+.build.url = function( template, hash ) {
+  if( !is.null( hash ) ) {
+    vars = ls( envir=hash )
+    for( var in vars ) {
+      val = get( var, envir=hash )
+      patt = paste( "\\$\\{", var, "\\}", sep="" )
+      template = gsub( patt, val, template )
+    }
+  }
+  template
+}
+
 setParam = function( ... ) {
   .params = list( ... )
   for( .name in names( .params ) ) {
