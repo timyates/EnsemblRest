@@ -21,7 +21,7 @@ sequenceById = function( id,
   if( !is.null( expand_3prime ) ) params = c( params, .make.params( expand_3prime=expand_3prime ) )
   if( !is.null( expand_5prime ) ) params = c( params, .make.params( expand_5prime=expand_5prime ) )
   if( !is.null( species ) ) params = c( params, .make.params( species=species ) )
-  .load.and.parse( c( .Ensembl$sequence.id, id ),
+  .load.and.parse( .Ensembl$sequence.id, c( id=id ),
                    params,
                    if( is.na( format ) ) .Ensembl$json.content.type else 'content-type=text/fasta' )
 }
@@ -38,7 +38,7 @@ sequenceByRegion = function( region, species,
   if( !is.na( mask ) ) params = c( params, .make.params( mask=mask ) )
   if( !is.null( expand_3prime ) ) params = c( params, .make.params( expand_3prime=expand_3prime ) )
   if( !is.null( expand_5prime ) ) params = c( params, .make.params( expand_5prime=expand_5prime ) )
-  .load.and.parse( c( .Ensembl$sequence.region, species, region ),
+  .load.and.parse( .Ensembl$sequence.region, c( species=species, region=region ),
                    params,
                    if( is.na( format ) ) .Ensembl$json.content.type else 'content-type=text/fasta' )
 }

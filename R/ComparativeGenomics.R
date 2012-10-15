@@ -16,7 +16,7 @@ geneTree = function( gid,
   if( phyloxml_aligned ) {
     params = c( params, 'phyloxml_aligned=True' )
   }
-  .load.and.parse( c( .Ensembl$genetree, gid ), params, 'content-type=text/nh' )
+  .load.and.parse( .Ensembl$genetree, c( id=gid ), params, 'content-type=text/nh' )
 }
 
 homologyById = function( id,
@@ -29,7 +29,7 @@ homologyById = function( id,
   if( !missing( species ) ) params = c( params, .make.params( species=species ) )
   if( !missing( target_species ) ) params = c( params, .make.params( target_species=target_species ) )
   if( !missing( target_taxon ) ) params = c( params, .make.params( target_taxon=target_taxon ) )
-  getRefClass( 'EnsHomologyResponse' )$new( .load.and.parse( c( .Ensembl$homology.id, id ), params )$data )
+  getRefClass( 'EnsHomologyResponse' )$new( .load.and.parse( .Ensembl$homology.id, c( id=id ), params )$data )
 }
 
 homologyBySymbol = function( symbol,
@@ -41,5 +41,5 @@ homologyBySymbol = function( symbol,
   params = .make.params( type=match.arg( type ), format=match.arg( format ) )
   if( !missing( target_species ) ) params = c( params, .make.params( target_species=target_species ) )
   if( !missing( target_taxon ) ) params = c( params, .make.params( target_taxon=target_taxon ) )
-  getRefClass( 'EnsHomologyResponse' )$new( .load.and.parse( c( .Ensembl$homology.symbol, species, symbol ), params )$data )
+  getRefClass( 'EnsHomologyResponse' )$new( .load.and.parse( .Ensembl$homology.symbol, c( species=species, symbol=symbol ), params )$data )
 }

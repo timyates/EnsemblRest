@@ -1,11 +1,11 @@
 # Information Calls
 
 infoAssembly = function( species ) {
-  getRefClass( 'EnsAssemblyInfo' )$new( .load.and.parse( c( .Ensembl$assembly, species ) ) )
+  getRefClass( 'EnsAssemblyInfo' )$new( .load.and.parse( .Ensembl$assembly, c( species=species ) ) )
 }
 
 assemblyDetails = function( id, species ) {
-  getRefClass( 'EnsAssemblyDetails' )$new( .load.and.parse( c( .Ensembl$assembly, species, id ) ) )
+  getRefClass( 'EnsAssemblyDetails' )$new( .load.and.parse( .Ensembl$assembly.region, c( species=species, region_name=id ) ) )
 }
 
 infoComparas = function() {

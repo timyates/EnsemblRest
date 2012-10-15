@@ -13,13 +13,10 @@
   else '*'
 }
 
-.build.url = function( template, hash ) {
-  if( !is.null( hash ) ) {
-    vars = ls( envir=hash )
-    for( var in vars ) {
-      val = get( var, envir=hash )
-      patt = paste( "\\$\\{", var, "\\}", sep="" )
-      template = gsub( patt, val, template )
+.build.url = function( template, vec ) {
+  if( !missing( vec ) && !is.null( vec ) ) {
+    for( var in names( vec ) ) {
+      template = gsub( paste( "\\$\\{", var, "\\}", sep="" ), vec[[ var ]], template )
     }
   }
   template
@@ -42,7 +39,7 @@ getParam = function( key ) {
   .Ensembl[[ key ]]
 }
 
-.load.and.parse = function( elements, params=c(), content_type=.Ensembl$json.content.type ) {
+.load.and.parse = function( url, elements, params=c(), content_type=.Ensembl$json.content.type ) {
   if( !is.null( .Ensembl$last.query ) ) {
     sleep.time = as.numeric( Sys.time() - .Ensembl$last.query )
     if( sleep.time < 0.3 ) {
@@ -51,7 +48,7 @@ getParam = function( key ) {
   }
   params = c( params, content_type )
   .Ensembl$last.query = Sys.time()
-  url = paste( paste( .Ensembl$url, paste( elements, collapse='/' ), sep='' ),
+  url = paste( paste( .Ensembl$url, .build.url( url, elements ), sep='' ),
                paste( params, collapse='&' ),
                sep='?' )
   .Ensembl$debugFn( paste( 'calling', url ) )
@@ -80,31 +77,43 @@ getParam = function( key ) {
 
   .Ensembl$last.query = NULL
 
-  # Function URL part
-  .Ensembl$genetree = 'genetree/id'
-  .Ensembl$homology.id = 'homology/id'
-  .Ensembl$homology.symbol = 'homology/symbol'
-  .Ensembl$xrefs = 'xrefs/id'
-  .Ensembl$xrefs.name = 'xrefs/name'
-  .Ensembl$xrefs.symbol = 'xrefs/symbol'
-  .Ensembl$assembly = 'assembly/info'
+  # Comparative Genomics
+  .Ensembl$genetree = 'genetree/id/${id}'
+  .Ensembl$homology.id = 'homology/id/${id}'
+  .Ensembl$homology.symbol = 'homology/symbol/${species}/${symbol}'
+
+  # Cross References
+  .Ensembl$xrefs = 'xrefs/id/${id}'
+  .Ensembl$xrefs.name = 'xrefs/name/${species}/${name}'
+  .Ensembl$xrefs.symbol = 'xrefs/symbol/${species}/${symbol}'
+
+  # Information
+  .Ensembl$assembly = 'assembly/info/${species}'
+  .Ensembl$assembly.region = 'assembly/info/${species}/${region_name}'
   .Ensembl$info.comparas = 'info/comparas'
   .Ensembl$info.data = 'info/data'
   .Ensembl$info.ping = 'info/ping'
   .Ensembl$info.rest = 'info/rest'
   .Ensembl$info.software = 'info/software'
   .Ensembl$info.species = 'info/species'
-  .Ensembl$lookup = 'lookup'
-  .Ensembl$mapping = 'map'
-  .Ensembl$mapping.cdna = 'map/cdna'
-  .Ensembl$mapping.cds = 'map/cds'
-  .Ensembl$mapping.translation = 'map/translation'
-  .Ensembl$sequence.id = 'sequence/id'
-  .Ensembl$sequence.region = 'sequence/region'
-  .Ensembl$variation = 'vep'
-  .Ensembl$variation.id = 'id'
-  .Ensembl$variation.tail = 'consequences'
-  
+
+  # Lookup
+  .Ensembl$lookup = 'lookup/${id}'
+
+  # Mapping
+  .Ensembl$mapping = 'map/${species}/${asm_one}/${region}/${asm_two}'
+  .Ensembl$mapping.cdna = 'map/cdna/${id}/${region}'
+  .Ensembl$mapping.cds = 'map/cds/${id}/${region}'
+  .Ensembl$mapping.translation = 'map/translation/${id}/${region}'
+
+  # Sequences
+  .Ensembl$sequence.id = 'sequence/id/${id}'
+  .Ensembl$sequence.region = 'sequence/region/${species}/${region}'
+
+  # Variation
+  .Ensembl$variation = 'vep/${species}/${region}/${allele}/consequences'
+  .Ensembl$variation.id = 'vep/${species}/id/${id}/consequences'
+
   .Ensembl$json.content.type = c( 'content-type=application/json' )
   .Ensembl$debug = FALSE
   .Ensembl$debugFn = .debug.none

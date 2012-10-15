@@ -1,7 +1,7 @@
 # Mapping Calls
 
 mapping = function( asm_one, region, asm_two, species ) {
-  lapply( .load.and.parse( c( .Ensembl$mapping, species, asm_one, region, asm_two ) )$mappings, function( x ) {
+  lapply( .load.and.parse( .Ensembl$mapping, c( species=species, asm_one=asm_one, region=region, asm_two=asm_two ) )$mappings, function( x ) {
     as( as( data.frame( space=c( x$original$seq_region_name, x$mapped$seq_region_name ),
                         start=c( as.numeric( x$original$start ), as.numeric( x$mapped$start ) ),
                         end=c( as.numeric( x$original$end ), as.numeric( x$mapped$end ) ),
@@ -18,7 +18,7 @@ mappingCdna = function( id, region, species=NULL, object=c( NA, 'gene', 'transcr
   params = c()
   if( !is.na( object ) ) params = c( params, .make.params( object=object ) )
   if( !is.null( species ) ) params = c( params, .make.params( species=species ) )
-  as( as( do.call( 'rbind', lapply( .load.and.parse( c( .Ensembl$mapping.cdna, id, region ), params )$mappings, function( e ) {
+  as( as( do.call( 'rbind', lapply( .load.and.parse( .Ensembl$mapping.cdna, c( id=id, region=region ), params )$mappings, function( e ) {
     data.frame( space='NA', start=e$start, end=e$end, strand=.strandString( e$strand ), gap=e$gap, rank=e$rank )
   } ) ), 'RangedData' ), 'GRanges' )
 }
@@ -28,7 +28,7 @@ mappingCds = function( id, region, species=NULL, object=c( NA, 'gene', 'transcri
   params = c()
   if( !is.na( object ) ) params = c( params, .make.params( object=object ) )
   if( !is.null( species ) ) params = c( params, .make.params( species=species ) )
-  as( as( do.call( 'rbind', lapply( .load.and.parse( c( .Ensembl$mapping.cds, id, region ), params )$mappings, function( e ) {
+  as( as( do.call( 'rbind', lapply( .load.and.parse( .Ensembl$mapping.cds, c( id=id, region=region ), params )$mappings, function( e ) {
     data.frame( space='NA', start=e$start, end=e$end, strand=.strandString( e$strand ), gap=e$gap, rank=e$rank )
   } ) ), 'RangedData' ), 'GRanges' )
 }
@@ -38,7 +38,7 @@ mappingTranslation = function( id, region, species=NULL, object=c( NA, 'gene', '
   params = c()
   if( !is.na( object ) ) params = c( params, .make.params( object=object ) )
   if( !is.null( species ) ) params = c( params, .make.params( species=species ) )
-  as( as( do.call( 'rbind', lapply( .load.and.parse( c( .Ensembl$mapping.translation, id, region ), params )$mappings, function( e ) {
+  as( as( do.call( 'rbind', lapply( .load.and.parse( .Ensembl$mapping.translation, c( id=id, region=region ), params )$mappings, function( e ) {
     data.frame( space='NA', start=e$start, end=e$end, strand=.strandString( e$strand ), gap=e$gap, rank=e$rank )
   } ) ), 'RangedData' ), 'GRanges' )
 }
