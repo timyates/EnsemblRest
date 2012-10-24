@@ -213,7 +213,7 @@ There is currently an issue with \code{mappingCdna}, \code{mappingCds} and \code
 The \code{mapping} function\footnote{\url{http://beta.rest.ensembl.org/documentation/info/assembly_map}} converts the co-ordinates in one assembly into another, ie:
 
 <<eval=TRUE,echo=TRUE>>=
-mapping( 'NCBI36', '1..10000:1', 'GRCh37', 'human' )
+mapping( 'NCBI36', 'X:1..10000:1', 'GRCh37', 'human' )
 @
 
 As you can see, it returns one \code{GRanges} object per result, with an \code{original} row and a \code{mapped} row.
