@@ -19,7 +19,7 @@ mappingCdna = function( id, region, species=NULL, object=c( NA, 'gene', 'transcr
   if( !is.na( object ) ) params = c( params, .make.params( object=object ) )
   if( !is.null( species ) ) params = c( params, .make.params( species=species ) )
   as( as( do.call( 'rbind', lapply( .load.and.parse( .Ensembl$mapping.cdna, c( id=id, region=region ), params )$mappings, function( e ) {
-    data.frame( space='NA', start=e$start, end=e$end, strand=.strandString( e$strand ), gap=e$gap, rank=e$rank )
+    data.frame( space=e$seq_region_name, start=e$start, end=e$end, strand=.strandString( e$strand ), gap=e$gap, rank=e$rank )
   } ) ), 'RangedData' ), 'GRanges' )
 }
 
@@ -29,7 +29,7 @@ mappingCds = function( id, region, species=NULL, object=c( NA, 'gene', 'transcri
   if( !is.na( object ) ) params = c( params, .make.params( object=object ) )
   if( !is.null( species ) ) params = c( params, .make.params( species=species ) )
   as( as( do.call( 'rbind', lapply( .load.and.parse( .Ensembl$mapping.cds, c( id=id, region=region ), params )$mappings, function( e ) {
-    data.frame( space='NA', start=e$start, end=e$end, strand=.strandString( e$strand ), gap=e$gap, rank=e$rank )
+    data.frame( space=e$seq_region_name, start=e$start, end=e$end, strand=.strandString( e$strand ), gap=e$gap, rank=e$rank )
   } ) ), 'RangedData' ), 'GRanges' )
 }
 
@@ -39,6 +39,6 @@ mappingTranslation = function( id, region, species=NULL, object=c( NA, 'gene', '
   if( !is.na( object ) ) params = c( params, .make.params( object=object ) )
   if( !is.null( species ) ) params = c( params, .make.params( species=species ) )
   as( as( do.call( 'rbind', lapply( .load.and.parse( .Ensembl$mapping.translation, c( id=id, region=region ), params )$mappings, function( e ) {
-    data.frame( space='NA', start=e$start, end=e$end, strand=.strandString( e$strand ), gap=e$gap, rank=e$rank )
+    data.frame( space=e$seq_region_name, start=e$start, end=e$end, strand=.strandString( e$strand ), gap=e$gap, rank=e$rank )
   } ) ), 'RangedData' ), 'GRanges' )
 }
