@@ -190,6 +190,30 @@ xrefsBySymbol( 'BRAF', 'human' )
 
 \pagebreak
 
+\subsection{Features}
+
+\subsubsection{featuresByRegion}
+
+We can also look for features along a given range\footnote{\url{http://beta.rest.ensembl.org/documentation/info/feature_region}} (by default this will just look for genes):
+
+<<eval=TRUE,echo=TRUE>>=
+featuresByRegion( '7:140424943-140624564', 'human' )
+@
+
+And by using the \code{feature} parameter, we can specify what we're looking for
+
+<<eval=TRUE,echo=TRUE>>=
+featuresByRegion( '7:140424943-140624564', 'human', feature='transcript' )
+@
+
+You can specify multiple features (columns which don't exist for a given type of result will be filled with \code{NA})
+
+<<eval=TRUE,echo=TRUE>>=
+featuresByRegion( '7:140424943-140624564', 'human', feature=c('gene','transcript') )
+@
+
+\pagebreak
+
 \subsection{Lookup}
 
 \subsubsection{lookupId}
@@ -213,7 +237,7 @@ There is currently an issue with \code{mappingCdna}, \code{mappingCds} and \code
 The \code{mapping} function\footnote{\url{http://beta.rest.ensembl.org/documentation/info/assembly_map}} converts the co-ordinates in one assembly into another, ie:
 
 <<eval=TRUE,echo=TRUE>>=
-mapping( 'NCBI36', '1..10000:1', 'GRCh37', 'human' )
+mapping( 'NCBI36', 'X:1..10000:1', 'GRCh37', 'human' )
 @
 
 As you can see, it returns one \code{GRanges} object per result, with an \code{original} row and a \code{mapped} row.

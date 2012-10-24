@@ -87,6 +87,8 @@ getParam = function( key ) {
   .Ensembl$xrefs.name = 'xrefs/name/${species}/${name}'
   .Ensembl$xrefs.symbol = 'xrefs/symbol/${species}/${symbol}'
 
+  .Ensembl$feature = 'feature/region/${species}/${region}'
+
   # Information
   .Ensembl$assembly = 'assembly/info/${species}'
   .Ensembl$assembly.region = 'assembly/info/${species}/${region_name}'

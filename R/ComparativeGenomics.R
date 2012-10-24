@@ -16,7 +16,7 @@ geneTree = function( gid,
   if( phyloxml_aligned ) {
     params = c( params, 'phyloxml_aligned=True' )
   }
-  .load.and.parse( .Ensembl$genetree, c( id=gid ), params, 'content-type=text/nh' )
+  .load.and.parse( .Ensembl$genetree, c( id=gid ), params, 'content-type=text/x-nh' )
 }
 
 homologyById = function( id,

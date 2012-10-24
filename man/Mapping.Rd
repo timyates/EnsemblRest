@@ -38,7 +38,7 @@
   The remaining 3 functions return a \code{GRanges} object containing the mapping ranges.
 }
 \examples{
-  mapping( 'NCBI36', '1..10000:1', 'GRCh37', 'human' )
+  mapping( 'NCBI36', 'X:1..10000:1', 'GRCh37', 'human' )
   mappingCdna( 'ENST00000288602', '100..300' )
   mappingCds( 'ENST00000288602', '100..300' )
   mappingTranslation( 'ENSP00000288602', '100..300' )

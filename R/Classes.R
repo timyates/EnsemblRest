@@ -223,8 +223,8 @@ setRefClass( "EnsTranscript",
                        data.frame( name=p$name, db=p$db )
                      } ) )
                    }
-                   alleles <<- rbind.fill( lapply( names( x$alleles ), function( a ) {
-                     j = x$alleles[[ a ]]
+                   alleles <<- rbind.fill( lapply( x$alleles, function( a ) {
+                     j = a
                      .process.data( j, list( name=NULL, display_codon_allele_string=NULL, pep_allele_string=NULL,
                                              codon_allele_string=NULL, hgvs_transcript=NULL, hgvs_protein= NULL,
                                              polyphen_score=NULL, polyphen_prediction=NULL, sift_score=as.numeric,
