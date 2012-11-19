@@ -1,92 +1,22 @@
 # Classes
-setRefClass( "EnsHomologyDetail",
-             fields=list( 
-               perc_pos="numeric",
-               perc_id="numeric",
-               protein_id="character",
-               align_seq="character",
-               id="character",
-               species="character",
-               cigar_line="character" ),
-             methods = list(
-               initialize = function( x=NULL, ... ) {
-                 'Initialize a HomologyDetail from data returned by rjson'
-                 if( !is.null( x ) ) {
-                   perc_pos   <<- as.numeric( x$perc_pos )
-                   perc_id    <<- as.numeric( x$perc_id )
-                   protein_id <<- x$protein_id
-                   align_seq  <<- x$align_seq
-                   id         <<- x$id
-                   species    <<- x$species
-                   cigar_line <<- x$cigar_line
-                 }
-               },
-               show = function() {
-                 'Method for automatically printing HomologyDetail'
-                 cat( paste( 'id         :', id ), '\n' )
-                 cat( paste( 'species    :', species ), '\n' )
-                 cat( paste( 'protein_id :', protein_id ), '\n' )
-                 cat( paste( 'perc_pos   :', perc_pos ), '\n' )
-                 cat( paste( 'perc_id    :', perc_id ), '\n' )
-                 cat( paste( 'cigar_line :', cigar_line ), '\n' )
-                 cat( paste( 'align_seq  :', align_seq ), '\n' )
-               }
-             ) )
-
-setRefClass( "EnsHomology",
-             fields=list( 
-               dn_ds='numeric',
-               type='character',
-               subtype='character',
-               source='EnsHomologyDetail',
-               target='EnsHomologyDetail'
-             ),
-             methods = list(
-               initialize = function( x=NULL, ... ) {
-                 'Initialize a Homology from data returned by rjson'
-                 if( !is.null( x ) ) {
-                   dn_ds   <<- as.numeric( x$dn_ds )
-                   type    <<- x$type
-                   subtype <<- x$subtype
-                   source  <<- getRefClass( 'EnsHomologyDetail' )$new( x$source, ... )
-                   target  <<- getRefClass( 'EnsHomologyDetail' )$new( x$target, ... )
-                 }
-               },
-               show = function() {
-                 'Method for automatically printing Homology'
-                 cat( paste( 'dn_ds   :', dn_ds ), '\n' )
-                 cat( paste( 'type    :', type ), '\n' )
-                 cat( paste( 'subtype :', subtype ), '\n' )
-                 if( length( source ) > 0 ) {
-                   cat(      'source  :\n' )
-                   source$show()
-                 }
-                 if( length( target ) > 0 ) {
-                   cat(      '\ntarget  :\n' )
-                   target$show()
-                 }
-               }
-           ) )
-
 setRefClass( "EnsHomologyResponse",
             fields=list(
               id='character',
-              homologies='list'
+              homologies='data.frame'
             ),
             methods = list(
                initialize = function( x=NULL, ... ) {
                  'Initialize a Homology Response from data returned by rjson'
                  if( !is.null( x ) ) {
                    id <<- x[[1]]$id
-                   homologies <<- lapply( x[[1]]$homologies, function( a ) {
-                     getRefClass( 'EnsHomology' )$new( a, ... )
-                   } )
+                   homologies <<- rbind.fill( lapply( x[[1]]$homologies, function( a ) {
+                     data.frame( a[ !sapply( a, is.null ) ], stringsAsFactors=F )
+                   } ) )
                  }
                },
                show = function() {
                  'Method for automatically printing Homology'
-                 cat( paste( 'id :', id ), '\n' )
-                 cat( paste( 'containing', length( homologies ), 'homologies\n' ) )
+                 cat( paste( '$id:', id, '$homologies:', length( homologies ), 'homologies' ) )
                }
             ) )
 

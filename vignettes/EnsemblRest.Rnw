@@ -143,7 +143,7 @@ When given an Ensembl Gene ID, returns the homology\footnote{\url{http://beta.re
 <<eval=TRUE,echo=TRUE>>=
 hResponse = homologyById( 'ENSG00000170037' )
 hResponse                 # The response object
-hResponse$homologies[1:2] # Just the top 2 homologies to save room
+hResponse[[1]]$homologies[1:2,] # Just the top 2 homologies to save room
 @
 
 \subsubsection{\code{homologyBySymbol}}
@@ -153,7 +153,15 @@ You can also retrieve homology information\footnote{\url{http://beta.rest.ensemb
 <<eval=TRUE,echo=TRUE>>=
 hResponse = homologyBySymbol( 'BRCA2', 'human' )
 hResponse                 # The response object
-hResponse$homologies[1:2] # Again, just the top 2 homologies to save room
+hResponse[[1]]$homologies[1:2,] # Again, just the top 2 homologies to save room
+@
+
+And using \code{format='condensed'}, you can get a more condensed result:
+
+<<eval=TRUE,echo=TRUE>>=
+hResponse = homologyBySymbol( 'BRCA2', 'human', format='condensed' )
+hResponse                 # The response object
+hResponse[[1]]$homologies[1:10,]
 @
 
 \pagebreak

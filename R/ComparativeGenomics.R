@@ -29,7 +29,11 @@ homologyById = function( id,
   if( !missing( species ) ) params = c( params, .make.params( species=species ) )
   if( !missing( target_species ) ) params = c( params, .make.params( target_species=target_species ) )
   if( !missing( target_taxon ) ) params = c( params, .make.params( target_taxon=target_taxon ) )
-  getRefClass( 'EnsHomologyResponse' )$new( .load.and.parse( .Ensembl$homology.id, c( id=id ), params )$data )
+  r = lapply( id, function( i ) {
+    getRefClass( 'EnsHomologyResponse' )$new( .load.and.parse( .Ensembl$homology.id, c( id=i ), params )$data )
+  } )
+  names( r ) = id
+  r
 }
 
 homologyBySymbol = function( symbol,
@@ -41,5 +45,9 @@ homologyBySymbol = function( symbol,
   params = .make.params( type=match.arg( type ), format=match.arg( format ) )
   if( !missing( target_species ) ) params = c( params, .make.params( target_species=target_species ) )
   if( !missing( target_taxon ) ) params = c( params, .make.params( target_taxon=target_taxon ) )
-  getRefClass( 'EnsHomologyResponse' )$new( .load.and.parse( .Ensembl$homology.symbol, c( species=species, symbol=symbol ), params )$data )
+  r = lapply( symbol, function( i ) {
+    getRefClass( 'EnsHomologyResponse' )$new( .load.and.parse( .Ensembl$homology.symbol, c( species=species, symbol=i ), params )$data )
+  } )
+  names( r ) = symbol
+  r
 }

@@ -18,8 +18,9 @@
   \item{...}{ Other params }
 }
 \details{
-  A class \code{EnsHomologyResponse}, which contains an id field, and a field \code{homologies} which is a List of \code{\link{EnsHomology}} objects.
+  A class \code{EnsHomologyResponse}, which contains an id field, and a field \code{homologies} which is a data.frame.
 }
 \seealso{
-  \code{\link{EnsHomology-class}}\cr
+  \code{\link{homologyById}}\cr
+  \code{\link{homologyBySymbol}}\cr
 }
