@@ -92,7 +92,7 @@ setRefClass( "EnsSpecies",
                name='character',
                aliases='character',
                groups='character',
-               release='character'
+               release='numeric'
              ),
              methods = list(
                initialize = function( x=NULL, ... ) {
