@@ -99,7 +99,8 @@ setRefClass( "EnsSpecies",
                  'Initialize an Species reference from data returned by rjson'
                  if( !is.null( x ) ) {
                    name  <<- x$name
-                   aliases <<- unlist( x$aliases )
+                   ali = unlist( x$aliases )
+                   aliases <<- if( is.null( ali ) ) '' else ali
                    groups <<- unlist( x$groups )
                    release <<- x$release
                  }

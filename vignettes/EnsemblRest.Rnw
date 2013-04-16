@@ -303,7 +303,7 @@ str( sequenceById( 'ENSP00000334393', type='protein' ), give.head=F, strict.widt
 You can also just query for a region of a given species\footnote{\url{http://beta.rest.ensembl.org/documentation/info/sequence_region}}:
 
 <<eval=TRUE,echo=TRUE>>=
-str( sequenceByRegion( 'X:1_000_000..1_000_100:1', 'human' ), give.head=F, strict.width='cut' )
+str( sequenceByRegion( 'X:1000000..1000100:1', 'human' ), give.head=F, strict.width='cut' )
 @
 
 If you pass \code{format='fasta'} to the above method, it will just return you a character vector containing a FastA formatted sequence.
