@@ -109,6 +109,9 @@ getParam = function( key ) {
   .Ensembl$mapping.cds = 'map/cds/${id}/${region}'
   .Ensembl$mapping.translation = 'map/translation/${id}/${region}'
 
+  # Ontologies
+  .Ensembl$ontology.id = 'ontology/id/${id}'
+
   # Sequences
   .Ensembl$sequence.id = 'sequence/id/${id}'
   .Ensembl$sequence.region = 'sequence/region/${species}/${region}'

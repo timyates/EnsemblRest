@@ -225,3 +225,57 @@ setRefClass( "EnsVariantConsequence",
                  }
                }
            ) )
+
+setRefClass( "EnsOntology",
+             fields=list(
+               ontology='character',
+               accession='character',
+               definition='character',
+               name='character',
+               namespace='character',
+               subsets='character',
+               synonyms='character',
+               children='list',
+               parents='list'
+             ),
+             methods = list(
+               initialize = function( x=NULL, ... ) {
+                 'Initialize an Ontology reference from data returned by rjson'
+                 if( !is.null( x ) ) {
+                   ontology   <<- if( is.null( x$ontology ) )           '' else x$ontology
+                   accession  <<- if( is.null( x$accession ) )          '' else x$accession
+                   definition <<- if( is.null( x$definition ) )         '' else x$definition
+                   name       <<- if( is.null( x$name ) )               '' else x$name
+                   namespace  <<- if( is.null( x$namespace ) )          '' else x$namespace
+                   subsets    <<- if( is.null( unlist( x$subsets ) ) )  '' else unlist( x$subsets )
+                   synonyms   <<- if( is.null( unlist( x$synonyms ) ) ) '' else unlist( x$synonyms )
+
+                   if( !is.null( x$children ) ) {
+                     children <<- lapply( x$children, function( c ) {
+                       getRefClass( 'EnsOntology' )$new( c )
+                     } )
+                   }
+                   if( !is.null( x$parents ) ) {
+                     parents <<- lapply( x$parents, function( p ) {
+                       getRefClass( 'EnsOntology' )$new( p )
+                     } )
+                   }
+                 }
+               },
+               show = function() {
+                 'Method for automatically printing Ref'
+                 if( length( ontology ) > 0   && max( nchar( ontology   ) ) > 0 ) cat( 'ontology   :', ontology, '\n' )
+                 if( length( accession ) > 0  && max( nchar( accession  ) ) > 0 ) cat( 'accession  :', accession, '\n' )
+                 if( length( definition ) > 0 && max( nchar( definition ) ) > 0 ) cat( 'definition :', definition, '\n' )
+                 if( length( name ) > 0       && max( nchar( name       ) ) > 0 ) cat( 'name       :', name, '\n' )
+                 if( length( namespace ) > 0  && max( nchar( namespace  ) ) > 0 ) cat( 'namespace  :', namespace, '\n' )
+                 if( length( subsets ) > 0    && max( nchar( subsets    ) ) > 0 ) cat( 'subsets    :', paste( subsets, collapse=', ' ), '\n' )
+                 if( length( synonyms ) > 0   && max( nchar( synonyms   ) ) > 0 ) cat( 'synonyms   :', paste( synonyms, collapse=', ' ), '\n' )
+                 if( length( parents ) > 0 ) {
+                   cat( 'parents    : ', length( parents ), 'in total\n' )
+                 }
+                 if( length( children ) > 0 ) {
+                   cat( 'children   : ', length( children ), 'in total\n' )
+                 }
+               }
+           ) )
