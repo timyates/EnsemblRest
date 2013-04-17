@@ -101,7 +101,7 @@ getParam = function( key ) {
   .Ensembl$info.species = 'info/species'
 
   # Lookup
-  .Ensembl$lookup = 'lookup/${id}'
+  .Ensembl$lookup = 'lookup/id/${id}'
 
   # Mapping
   .Ensembl$mapping = 'map/${species}/${asm_one}/${region}/${asm_two}'
