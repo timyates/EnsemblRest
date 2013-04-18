@@ -10,13 +10,38 @@ geneTree = function( gid,
                                   'ncbi_name',
                                   'njtree',
                                   'phylip' ),
-                     phyloxml_aligned=FALSE  ) {
+                     sequence=c( 'protein', 'cdna', 'none' ),
+                     aligned=FALSE  ) {
   nh_format = match.arg( nh_format )
+  sequence = match.arg( sequence )
   params = .make.params( nh_format=nh_format )
-  if( phyloxml_aligned ) {
-    params = c( params, 'phyloxml_aligned=True' )
+  params = c( params, .make.params( sequence=sequence ) )
+  if( aligned ) {
+    params = c( params, 'aligned=True' )
   }
   .load.and.parse( .Ensembl$genetree, c( id=gid ), params, 'content-type=text/x-nh' )
+}
+
+geneTreeMember = function( gid,
+                           db_type=NULL,
+                           object=NULL,
+                           species=NULL ) {
+  params = c()
+  if( !is.null( db_type ) ) params = c( params, .make.params( db_type=db_type ) )
+  if( !is.null( object ) )  params = c( params, .make.params( object=object ) )
+  if( !is.null( species ) ) params = c( params, .make.params( species=species ) )
+  .load.and.parse( .Ensembl$genetree.member, c( id=gid ), params, 'content-type=text/x-nh' )
+}
+
+geneTreeSymbol = function( symbol, species,
+                           db_type=NULL,
+                           object=NULL,
+                           external_db=NULL ) {
+  params = c()
+  if( !is.null( db_type ) )     params = c( params, .make.params( db_type=db_type ) )
+  if( !is.null( object ) )      params = c( params, .make.params( object=object ) )
+  if( !is.null( external_db ) ) params = c( params, .make.params( external_db=external_db ) )
+  .load.and.parse( .Ensembl$genetree.symbol, c( symbol=symbol, species=species ), params, 'content-type=text/x-nh' )
 }
 
 homologyById = function( id,

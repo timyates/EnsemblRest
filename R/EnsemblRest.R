@@ -80,6 +80,8 @@ getParam = function( key ) {
 
   # Comparative Genomics
   .Ensembl$genetree = 'genetree/id/${id}'
+  .Ensembl$genetree.member = 'genetree/member/id/${id}'
+  .Ensembl$genetree.symbol = 'genetree/member/symbol/${species}/${symbol}'
   .Ensembl$homology.id = 'homology/id/${id}'
   .Ensembl$homology.symbol = 'homology/symbol/${species}/${symbol}'
 
@@ -119,6 +121,7 @@ getParam = function( key ) {
 
   # Taxonomies
   .Ensembl$taxonomy.id = 'taxonomy/id/${id}'
+  .Ensembl$taxonomy.classification = 'taxonomy/classification/${id}'
 
   # Sequences
   .Ensembl$sequence.id = 'sequence/id/${id}'

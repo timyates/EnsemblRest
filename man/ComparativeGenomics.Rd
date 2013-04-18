@@ -1,6 +1,8 @@
 \name{comparativeGenomics}
 \alias{EnsemblRest-comparativeGenomics}
 \alias{geneTree}
+\alias{geneTreeMember}
+\alias{geneTreeSymbol}
 \alias{homologyById}
 \alias{homologyBySymbol}
 \title{
@@ -28,6 +30,10 @@
                          'njtree',
                          'phylip' ),
              phyloxml_aligned=FALSE  )
+
+  geneTreeMember( gid, db_type=NULL, object=NULL, species=NULL )
+  geneTreeSymbol( symbol, species, db_type=NULL, object=NULL, external_db=NULL )
+
   homologyById( id,       # REQUIRED
                 species,  # NOT REQUIRED
                 target_species,
@@ -60,6 +66,8 @@
 }
 \examples{
   geneTree( 'ENSGT00390000003602' )
+  geneTreeMember( 'ENSG00000157764')
+  geneTreeSymbol( 'BRCA2', 'homo_sapiens' )
   homologyById( 'ENSG00000170037' )
   homologyBySymbol( 'BRCA2', 'human' )
 }
