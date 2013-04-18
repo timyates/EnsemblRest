@@ -34,3 +34,12 @@ ontologyAncestorsChart = function( id, ontology=NULL ) {
     } )
   }, simplify=F )
 }
+
+ontologyDescendents = function( id, closest_term=NULL, ontology=NULL, subset=NULL, zero_distance=NULL ) {
+  params = c()
+  if( !is.null( closest_term ) )  params = c( params, .make.params( closest_term=closest_term ) )
+  if( !is.null( ontology ) )      params = c( params, .make.params( ontology=ontology ) )
+  if( !is.null( subset ) )        params = c( params, .make.params( subset=subset ) )
+  if( !is.null( zero_distance ) ) params = c( params, .make.params( zero_distance=zero_distance ) )
+  lapply( .load.and.parse( .Ensembl$ontology.descendents, c( id=id ), params ), getRefClass( 'EnsOntology' )$new )
+}

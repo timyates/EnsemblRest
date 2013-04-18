@@ -115,7 +115,8 @@ getParam = function( key ) {
   .Ensembl$ontology.name = 'ontology/name/${name}'
   .Ensembl$ontology.ancestors = 'ontology/ancestors/${id}'
   .Ensembl$ontology.ancestors.chart = 'ontology/ancestors/chart/${id}'
-
+  .Ensembl$ontology.descendents = 'ontology/descendents/${id}'
+  
   # Sequences
   .Ensembl$sequence.id = 'sequence/id/${id}'
   .Ensembl$sequence.region = 'sequence/region/${species}/${region}'
