@@ -279,3 +279,55 @@ setRefClass( "EnsOntology",
                  }
                }
            ) )
+
+setRefClass( "EnsTaxonomy",
+             fields=list(
+               id='character',
+               name='character',
+               scientific_name='character',
+               leaf='logical',
+               tags='list',
+               parent='ANY',  # Will be EnsTaxonomy or NULL
+               children='list'
+             ),
+             methods = list(
+               initialize = function( x=NULL, ... ) {
+                 'Initialize an Ontology reference from data returned by rjson'
+                 if( !is.null( x ) ) {
+                   scientific_name <<- if( is.null( x$scientific_name ) ) ''     else x$scientific_name
+                   parent          <<- if( is.null( x$parent ) )          NULL   else getRefClass( 'EnsTaxonomy' )$new( x$parent )
+                   name            <<- if( is.null( x$name ) )            ''     else x$name
+                   id              <<- if( is.null( x$id ) )              ''     else x$id
+                   leaf            <<- if( is.null( x$leaf ) )            FALSE  else x$leaf == 1
+                   tags            <<- if( is.null( x$tags ) ) {          list() }
+                   else {
+                     tags <<- x$tags
+                   }
+
+                   if( !is.null( x$children ) ) {
+                     children <<- lapply( seq_along( x$children ), function( idx ) {
+                       getRefClass( 'EnsTaxonomy' )$new( x$children[[ idx ]] )
+                     } )
+                   }
+                 }
+               },
+               show = function() {
+                 'Method for automatically printing Ref'
+                 if( length( id ) > 0   && max( nchar( id   ) ) > 0 )                       cat( 'id              : ', id, '\n' )
+                 if( length( name ) > 0  && max( nchar( name  ) ) > 0 )                     cat( 'name            : ', name, '\n' )
+                 if( length( scientific_name ) > 0 && max( nchar( scientific_name ) ) > 0 ) cat( 'scientific_name : ', scientific_name, '\n' )
+                 cat(                                                                            'leaf            : ', leaf, '\n' )
+                 if( length( tags ) > 0 ) {
+                   cat(                                                                          'tags            :\n' )
+                   for( h in names( tags ) ) {
+                     cat( ' ', h, '=', paste( unlist( tags[ h ] ), collapse=', ' ), '\n' )
+                   }
+                 }
+                 if( length( children ) > 0 ) {
+                   cat(                                                                          'children        : ', length( children ), 'in total\n' )
+                 }
+                 if( !is.null( parent ) ) {
+                   cat(                                                                          'parent          : EXISTS' )
+                 }
+               }
+           ) )
