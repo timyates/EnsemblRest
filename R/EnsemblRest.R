@@ -16,7 +16,7 @@
 .build.url = function( template, vec ) {
   if( !missing( vec ) && !is.null( vec ) ) {
     for( var in names( vec ) ) {
-      template = gsub( paste( "\\$\\{", var, "\\}", sep="" ), vec[[ var ]], template )
+      template = gsub( paste( "\\$\\{", var, "\\}", sep="" ), URLencode( vec[[ var ]] ), template )
     }
   }
   template
@@ -53,6 +53,7 @@ getParam = function( key ) {
                sep='?' )
   .Ensembl$debugFn( paste( 'calling', url ) )
   result = getURL( url )
+  .Ensembl$debugFn( paste( 'got', result ) )
 
   if( content_type == .Ensembl$json.content.type ) {
     result = suppressWarnings( fromJSON( result ) )
@@ -111,6 +112,7 @@ getParam = function( key ) {
 
   # Ontologies
   .Ensembl$ontology.id = 'ontology/id/${id}'
+  .Ensembl$ontology.name = 'ontology/name/${name}'
   .Ensembl$ontology.ancestors = 'ontology/ancestors/${id}'
   .Ensembl$ontology.ancestors.chart = 'ontology/ancestors/chart/${id}'
 

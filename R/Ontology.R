@@ -5,6 +5,14 @@ ontologyId = function( id, relation=NULL, simple=FALSE ) {
   getRefClass( 'EnsOntology' )$new( .load.and.parse( .Ensembl$ontology.id, c( id=id ), params ) )
 }
 
+ontologyName = function( name, ontology=NULL, relation=NULL, simple=FALSE ) {
+  params = c()
+  if( !is.null( relation ) ) params = c( params, .make.params( relation=relation ) )
+  if( !is.null( ontology ) ) params = c( params, .make.params( ontology=ontology ) )
+  if( simple ) params = c( params, .make.params( simple='1' ) )
+  lapply( .load.and.parse( .Ensembl$ontology.name, c( name=name ), params ), getRefClass( 'EnsOntology' )$new )
+}
+
 ontologyAncestors = function( id, ontology=NULL ) {
   params = c()
   if( !is.null( ontology ) ) params = c( params, .make.params( ontology=ontology ) )
