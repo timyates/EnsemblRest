@@ -29,8 +29,8 @@
                          'ncbi_name',
                          'njtree',
                          'phylip' ),
-             phyloxml_aligned=FALSE  )
-
+             sequence=c( 'protein', 'cdna', 'none' ),
+             aligned=FALSE  )
   geneTreeMember( gid, db_type=NULL, object=NULL, species=NULL )
   geneTreeSymbol( symbol, species, db_type=NULL, object=NULL, external_db=NULL )
 
@@ -50,7 +50,11 @@
 \arguments{
   \item{gid}{ Ensembl GeneTree ID, ie: ENSGT00390000003602. }
   \item{nh_format}{ The format of a NH (New Hampshire) request. }
-  \item{phyloxml_aligned}{ Alter if the PhyloXML returned by this endpoint shows the aligned string with insertions where applicable }
+  \item{aligned}{ Alter if the PhyloXML returned by this endpoint shows the aligned string with insertions where applicable }
+  \item{sequence}{ The type of sequence to bring back. Setting it to none results in no sequence being returned }
+  \item{db_type}{ Registry group which we should limit our search to. Useful if a stable ID is not unique to a species, eg \'core\' }
+  \item{object}{ Object type to restrict searches to. Used when a stable ID is not unique to a single class. This is equivalent to the Perl API object classes, eg \'gene\', or \'transcript\' }
+  \item{external_db}{ Limit your symbol search to just this database, eg: \'HGNC\' }
   \item{id}{ Ensembl Gene id, ie: ENSG00000170037 }
   \item{species}{ Registry name/aliases used to restrict searches by. Only required if a stable ID is not unique to a species (not the case with Ensembl databases), ie: homo_sapiens }
   \item{target_species}{ NOT REQUIRED: Target species to restrict the homology results from. Supports all registry aliases, ie: homo_sapiens, mouse, etc  }
