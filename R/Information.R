@@ -32,8 +32,10 @@ infoSoftware = function() {
   .load.and.parse( .Ensembl$info.software )$release
 }
 
-infoSpecies = function() {
-  lapply( .load.and.parse( .Ensembl$info.species )$species, function( a ) {
+infoSpecies = function( division=NULL ) {
+  params=c()
+  if( !is.null( division ) ) params = c( params, .make.params( division=division ) )
+  lapply( .load.and.parse( .Ensembl$info.species, NULL, params )$species, function( a ) {
     getRefClass( 'EnsSpecies' )$new( a )
   } )
 }

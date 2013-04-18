@@ -34,11 +34,12 @@
   isAlive()
   infoRest()
   infoSoftware()
-  infoSpecies()
+  infoSpecies( division=NULL )
 }
 \arguments{
   \item{species}{ Registry name/aliases used to restrict searches by. Only required if a stable ID is not unique to a species (not the case with Ensembl databases), ie: mouse }
   \item{id}{ The sequence region name to retreive statistics for, ie: 1, X }
+  \item{division}{ Specify a division of Ensembl or Ensembl Genomes to restrict data types by, eg: \'ensembl\'}
 }
 \details{
   The method isAlive returns a \code{logical} showing whether the service is alive.
@@ -54,4 +55,5 @@
 \examples{
   infoAssembly( 'human' )
   assemblyDetails( 'X', 'mouse' )
+  infoSpecies( 'ensembl' )
 }
