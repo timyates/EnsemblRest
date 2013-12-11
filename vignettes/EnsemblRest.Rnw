@@ -289,7 +289,7 @@ str( sequenceById( 'ENSG00000157764' ), give.head=F, strict.width='cut' )
 You can also get different types of sequence, here is an example for the spliced CDNA sequence of a transcript:
 
 <<eval=TRUE,echo=TRUE>>=
-str( sequenceById( 'ENST00000408384', type='cdna' ), give.head=F, strict.width='cut' )
+str( sequenceById( 'ENST00000473358', type='cdna' ), give.head=F, strict.width='cut' )
 @
 
 And again, for the protein coding

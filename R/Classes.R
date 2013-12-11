@@ -21,43 +21,48 @@ setRefClass( "EnsHomologyResponse",
             ) )
 
 setRefClass( "EnsAssemblyInfo",
-             fields=list( 
+             fields=list(
+               karyotype='character',
                assembly_name='character',
-               top_level_seq_region_names='character',
+               top_level_region='data.frame',
                assembly_date='character',
                coord_system_versions='character',
                genebuild_start_date='character',
                genebuild_initial_release_date='character',
-               schema_build='character',
                genebuild_last_geneset_update='character',
-               genebuild_method='character'
+               genebuild_method='character',
+               default_coord_system_version='character'
              ),
              methods = list(
                initialize = function( x=NULL, ... ) {
                  'Initialize an Assembly info reference from data returned by rjson'
+                 .Ensembl$debugFn( str( x ) )
                  if( !is.null( x ) ) {
-                   assembly_name                  <<- x$assembly.name
-                   top_level_seq_region_names     <<- x$top_level_seq_region_names
-                   assembly_date                  <<- x$assembly.date
+                   assembly_name                  <<- x$assembly_name
+                   top_level_region               <<- rbind.fill( lapply( x$top_level_region, function( a ) {
+                     data.frame( a[ !sapply( a, is.null ) ], stringsAsFactors=F )
+                   } ) )
+                   assembly_date                  <<- x$assembly_date
                    coord_system_versions          <<- x$coord_system_versions
-                   genebuild_start_date           <<- x$genebuild.start_date
-                   genebuild_initial_release_date <<- x$genebuild.initial_release_date
-                   schema_build                   <<- x$schema_build
-                   genebuild_last_geneset_update  <<- x$genebuild.last_geneset_update
-                   genebuild_method               <<- x$genebuild.method
+                   genebuild_start_date           <<- x$genebuild_start_date
+                   genebuild_initial_release_date <<- x$genebuild_initial_release_date
+                   genebuild_last_geneset_update  <<- x$genebuild_last_geneset_update
+                   genebuild_method               <<- x$genebuild_method
+                   default_coord_system_version   <<- x$default_coord_system_version
                  }
                },
                show = function() {
                  'Method for automatically printing Ref'
+                 if( length( karyotype ) > 0 )                      cat( paste( 'karyotype                      :', karyotype ), '\n' )
                  if( length( assembly_name ) > 0 )                  cat( paste( 'assembly_name                  :', assembly_name ), '\n' )
                  if( length( assembly_date ) > 0 )                  cat( paste( 'assembly_date                  :', assembly_date ), '\n' )
                  if( length( coord_system_versions ) > 0 )          cat( paste( 'coord_system_versions          :', paste( coord_system_versions, collapse=', ' ) ), '\n' )
-                 if( length( schema_build ) > 0 )                   cat( paste( 'schema_build                   :', schema_build ), '\n' )
                  if( length( genebuild_start_date ) > 0 )           cat( paste( 'genebuild_start_date           :', genebuild_start_date ), '\n' )
                  if( length( genebuild_initial_release_date ) > 0 ) cat( paste( 'genebuild_initial_release_date :', genebuild_initial_release_date ), '\n' )
                  if( length( genebuild_last_geneset_update ) > 0 )  cat( paste( 'genebuild_last_geneset_update  :', genebuild_last_geneset_update ), '\n' )
                  if( length( genebuild_method ) > 0 )               cat( paste( 'genebuild_method               :', genebuild_method ), '\n' )
-                 if( length( top_level_seq_region_names ) > 0 )     cat( paste( 'top_level_seq_region_names     :', paste( top_level_seq_region_names, collapse=', ' ) ), '\n' )
+                 if( length( default_coord_system_version ) > 0 )   cat( paste( 'default_coord_system_version   :', default_coord_system_version ), '\n' )
+                                                                    cat( paste( 'top_level_region count         :', dim( top_level_region )[1] ), '\n' )
                }
            ) )
 
