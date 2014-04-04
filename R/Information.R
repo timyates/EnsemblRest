@@ -21,7 +21,8 @@ infoData = function() {
 }
 
 isAlive = function() {
-  .load.and.parse( .Ensembl$info.ping )$ping == '1'
+  res = tryCatch(.load.and.parse( .Ensembl$info.ping ), error = function(e) e)
+  !is(res, "error") && res$ping == "1"
 }
 
 infoRest = function() {
