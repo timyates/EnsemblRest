@@ -1,3 +1,5 @@
+#Ontology calls
+
 ontologyId = function( id, relation=NULL, simple=FALSE ) {
   params = c()
   if( !is.null( relation ) ) params = c( params, .make.params( relation=relation ) )

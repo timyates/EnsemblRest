@@ -1,4 +1,4 @@
-# Variation
+# Variation calls
 
 variationAllele = function( allele, region, species ) {
   lapply( .load.and.parse( .Ensembl$variation, c( species=species, region=region, allele=allele ) )$data, function( f ) {

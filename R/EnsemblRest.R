@@ -1,18 +1,29 @@
+# This hash stores all properties, a link to the debug function (if it is turned
+# on), and the format of the URLs for the REST queries
 .Ensembl = new.env( hash=TRUE )
 
+# This is the default debug function
 .debug.none = function( message ) {
 }
 
+# This is used when setParam( debug=TRUE ) is called
 .debug.full = function( message ) {
   cat( format( Sys.time(), "%a %b %d %X %Y" ), "::", message, "\n" )
 }
 
+# This converts between '1' and '-1' to '+', '-', or '*'
 .strandString = function( strand ) {
   if( strand == '1' || strand == 1 ) '+'
   else if( strand == '-1' || strand == -1 ) '-'
   else '*'
 }
 
+# This converts a URL template, ie:
+#    'homology/symbol/${species}/${symbol}'
+# and a named vector, ie:
+#    c( species='human', symbol='tp53' )
+# to a character vector, ie:
+#    'homology/symbol/human/tp53'
 .build.url = function( template, vec ) {
   if( !missing( vec ) && !is.null( vec ) ) {
     for( var in names( vec ) ) {
@@ -22,6 +33,7 @@
   template
 }
 
+# Handle setting of params at runtime (esp. debug)
 setParam = function( ... ) {
   .params = list( ... )
   for( .name in names( .params ) ) {
@@ -35,10 +47,12 @@ setParam = function( ... ) {
   }
 }
 
+# Retrieve a param
 getParam = function( key ) {
   .Ensembl[[ key ]]
 }
 
+# Fetch the data from the REST service, throttling back to 3 queries per second
 .load.and.parse = function( url, elements, params=c(), content_type=.Ensembl$json.content.type ) {
   if( !is.null( .Ensembl$last.query ) ) {
     sleep.time = as.numeric( Sys.time() - .Ensembl$last.query )
@@ -64,6 +78,7 @@ getParam = function( key ) {
   result
 }
 
+# Convert a named vector to a list of 'name=value'
 .make.params = function( ... ) {
   .params = list( ... )
   f = function( name ) {

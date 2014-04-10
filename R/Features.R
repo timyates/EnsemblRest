@@ -1,3 +1,5 @@
+# Features calls
+
 featuresById = function( id,
                          feature=c( 'gene', 'transcript', 'cds', 'exon',
                                     'variation', 'somatic_variation',

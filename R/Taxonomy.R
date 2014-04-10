@@ -1,3 +1,5 @@
+# Taxonomy calls
+
 taxonomyId = function( id, simple=FALSE ) {
   params = c()
   if( simple ) params = c( params, .make.params( simple='1' ) )

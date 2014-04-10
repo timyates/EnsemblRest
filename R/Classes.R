@@ -1,4 +1,5 @@
-# Classes
+# Classes for data-types that have a non-R ish structure
+
 setRefClass( "EnsHomologyResponse",
             fields=list(
               id='character',
