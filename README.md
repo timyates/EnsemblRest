@@ -1,3 +1,5 @@
+# no longer maintained. post an issue if you fancy taking it over
+
 ## EnsemblRest an R package for accessing the Ensembl REST API.
 
 http://beta.rest.ensembl.org/
